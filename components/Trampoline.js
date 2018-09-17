@@ -8,7 +8,7 @@ import { array, object, string } from 'prop-types';
  *  - angle 
  *  - color 
  */
-export default class Box extends Component {
+export default class Trampoline extends Component {
   render() {
     const width = this.props.size[0];
     const height = this.props.size[1];
@@ -32,7 +32,7 @@ export default class Box extends Component {
   }
 }
 
-Box.propTypes = {
+Trampoline.propTypes = {
     size: array,
     body: object, 
     // angle: ,
