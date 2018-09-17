@@ -16,8 +16,10 @@ const DeleteTrampoline = (entities, dispatch) => {
         let trampoline = entities[k];
         // console.log('Trampoline: ', trampoline)
         // console.log("Distance:",distance(trampoline.body.position, box.body.position))
-		if (distance(trampoline.body.position, box.body.position) < 35) {
-            // console.log("trying to delete")
+		if (distance(trampoline.body.position, box.body.position) < 50) {
+            console.log("trying to delete")
+            // console.log(box.body)
+            Matter.Body.applyForce(box.body, box.body.position, {x:0.01, y:-0.2})
             entities[k].remove = true;
             Matter.World.remove(entities.physics.world, entities[k].body);
 			delete entities[k];

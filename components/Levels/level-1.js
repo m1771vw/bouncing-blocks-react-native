@@ -15,8 +15,8 @@ const world = engine.world;                                     // Required for 
     Friction: How much something slides
     restitution: Elasticity. 0 is inelastic, no bouncing. 0.8 means it will bounce back w/ 80% of its kinetic energy 
 */
-const initialBox = Matter.Bodies.rectangle(width / 2, 100, boxSize, boxSize, { frictionAir: 0.01, friction: 0.00, restitution: 1.5 });
-const initialTrampoline = Matter.Bodies.rectangle(width / 2, height - (boxSize * 2) - 50, 200, 10, { isStatic: true });
+const initialBox = Matter.Bodies.rectangle(boxSize, 100, boxSize, boxSize, { frictionAir: 0.01, friction: 0.00, restitution: 1 });
+const initialTrampoline = Matter.Bodies.rectangle(width / 2 - boxSize, height - (boxSize * 2) - 50, 200, 10, { isStatic: true });
 const floor = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
 const roof = Matter.Bodies.rectangle(width / 2, 0, width, boxSize, { isStatic: true });
 const leftWall = Matter.Bodies.rectangle(0, height / 2, width * 0.05, height, { isStatic: true });
@@ -29,7 +29,7 @@ export default LevelOne => {
     return {
         // physics: { engine: engine, world: world, constraint: constraint },
         physics: { engine: engine, world: world },
-        lefroofWall: { body: roof, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        roof: { body: roof, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         leftWall: { body: leftWall, size: [width * 0.05, height], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         rightWall: { body: rightWall, size: [width * 0.05, height], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         floor: { body: floor, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
