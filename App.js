@@ -7,7 +7,8 @@ import LevelOne from './components/Levels/level-1';
 export default class App extends PureComponent {
   state={
     score: 0,
-    trampolines: 15
+    trampolines: 15,
+    lives: 5
   }
   increaseScore = () => {
     // console.log("Trying to increase score")
@@ -25,6 +26,11 @@ export default class App extends PureComponent {
       trampolines: this.state.trampolines - 1
     })
   }
+  decreaseLives = () => {
+    this.setState({
+      lives: this.state.lives - 1
+    })
+  }
   handleEvent = ev => {
     switch (ev.type) {
       case "increase-trampolines":
@@ -36,6 +42,9 @@ export default class App extends PureComponent {
         break;
       case "decrease-trampolines":
         this.decreaseTrampolines();
+        break;
+      case "decrease-lives":
+        this.decreaseLives();
         break;
     }
   };
@@ -49,6 +58,7 @@ export default class App extends PureComponent {
         <StatusBar hidden={true} />
         <View style={styles.scoreContainer}>
         <Text>Score: {this.state.score}</Text>
+        <Text>Lives: {this.state.lives}</Text>
         <Text>Trampoline: {this.state.trampolines}</Text>
         </View>
       </GameEngine>

@@ -29,7 +29,7 @@ const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.25 , width * 0.
 const rightWallLower = Matter.Bodies.rectangle(width, height , width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 // - Matter.World.add(world, [body, floor]);
 // Matter.Resolver._restingThresh = 0.01
-Matter.World.add(world, [initialBox, leftWall, rightWallUpper, rightWallLower, initialTrampoline, roof, floor]); // Add to the world
+Matter.World.add(world, [initialBox, leftWall, rightWallUpper, rightWallLower, initialTrampoline, roof]); // Add to the world
 export default LevelOne => {
     // - Returns an entity
     // console.log(floor);

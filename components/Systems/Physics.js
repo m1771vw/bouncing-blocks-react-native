@@ -1,5 +1,7 @@
 import Matter from "matter-js";
+import { Dimensions } from "react-native";
 
+const { width, height } = Dimensions.get("screen");
 const updatePhysicsEngine = (entities,time) => {
 	let engine = entities["physics"].engine;
 	Matter.Engine.update(engine, time.delta);
@@ -13,8 +15,14 @@ const removeEntitiesThatHaveFallenTooFar = (entities, dispatch) => {
 	Object.keys(entities).filter(
         key => {
             if(key.includes('box')){
-                if(entities[key].body.position.y > 1000 || entities[key].body.position.x > 1000){
-                    console.log("Removing something out of bounds");
+                
+                if(entities[key].body.position.y > height && entities[key].body.position.x < width){
+                    console.log("PreMature Death: Removing something out of bounds");
+                    Matter.World.remove(entities.physics.world, entities[key].body);
+                    dispatch({type:'decrease-lives'})
+                    delete entities[key];
+                } else if(entities[key].body.position.y > height || entities[key].body.position.x > width){
+                    console.log("Add Score: Removing something out of bounds");
                     Matter.World.remove(entities.physics.world, entities[key].body);
                     dispatch({type:'increase-score'})
                     delete entities[key];
