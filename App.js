@@ -8,7 +8,14 @@ export default class App extends PureComponent {
   state={
     score: 0,
     trampolines: 15,
-    lives: 5
+    lives: 2,
+    gameIsRunning: true,
+    gameOver: false
+  }
+  gameOver = () => {
+    this.setState({
+      gameIsRunning: false
+    })
   }
   increaseScore = () => {
     // console.log("Trying to increase score")
@@ -29,6 +36,16 @@ export default class App extends PureComponent {
   decreaseLives = () => {
     this.setState({
       lives: this.state.lives - 1
+    }, this.checkIfGameOver)
+  }
+  checkIfGameOver = () => {
+    this.state.lives <= 0 
+    ? this.setState({
+      gameOver: true,
+      gameIsRunning: false
+    })
+    : this.setState({
+      gameIsRunning: true
     })
   }
   handleEvent = ev => {
@@ -46,12 +63,16 @@ export default class App extends PureComponent {
       case "decrease-lives":
         this.decreaseLives();
         break;
+      case "game-over":
+        this.gameOver();
+        break;
     }
   };
   render() {
     return (
       <GameEngine 
         onEvent={this.handleEvent}
+        running={this.state.gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
         entities={LevelOne()}> {/*Returns Object of entities*/}
@@ -60,6 +81,9 @@ export default class App extends PureComponent {
         <Text>Score: {this.state.score}</Text>
         <Text>Lives: {this.state.lives}</Text>
         <Text>Trampoline: {this.state.trampolines}</Text>
+        {this.state.gameOver && (
+            <Text> Game over </Text>
+          )}
         </View>
       </GameEngine>
     );
