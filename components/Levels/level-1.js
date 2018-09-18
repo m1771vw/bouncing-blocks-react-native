@@ -15,14 +15,17 @@ const world = engine.world;                                     // Required for 
     Friction: How much something slides
     restitution: Elasticity. 0 is inelastic, no bouncing. 0.8 means it will bounce back w/ 80% of its kinetic energy 
 */
+// const initialCircle = Matter.Bodies.circle(boxSize, 100, boxSize, { frictionAir: 0.01, friction: 0.00, restitution: 0 });
 const initialBox = Matter.Bodies.rectangle(boxSize, 100, boxSize, boxSize, { frictionAir: 0.01, friction: 0.00, restitution: 1 });
-const initialTrampoline = Matter.Bodies.rectangle(width / 2 - boxSize, height - (boxSize * 2) - 50, 200, 10, { isStatic: true });
+const initialTrampoline = Matter.Bodies.rectangle(width, height - (boxSize * 2) - 50, 100, 10, { isStatic: true });
 const floor = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
 const roof = Matter.Bodies.rectangle(width / 2, 0, width, boxSize, { isStatic: true });
 const leftWall = Matter.Bodies.rectangle(0, height / 2, width * 0.05, height, { isStatic: true });
-const rightWall = Matter.Bodies.rectangle(width, height /2, width * 0.05, height, { isStatic: true });
+const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.25 , width * 0.05, height/2, { isStatic: true });
+const rightWallLower = Matter.Bodies.rectangle(width, height , width * 0.05, height/2, { isStatic: true });
 // - Matter.World.add(world, [body, floor]);
-Matter.World.add(world, [initialBox,  leftWall, rightWall, initialTrampoline, floor]); // Add to the world
+// Matter.Resolver._restingThresh = 0.01
+Matter.World.add(world, [initialBox,  leftWall, rightWallUpper, rightWallLower, initialTrampoline, floor]); // Add to the world
 export default LevelOne => {
     // - Returns an entity
     // console.log(floor);
@@ -31,12 +34,14 @@ export default LevelOne => {
         physics: { engine: engine, world: world },
         roof: { body: roof, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         leftWall: { body: leftWall, size: [width * 0.05, height], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
-        rightWall: { body: rightWall, size: [width * 0.05, height], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height/2], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         floor: { body: floor, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
                                                                                          // Entities will return an object 
                                                                                          // Each property has a value that has renderer and renderer's props
-        initialBox: { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', renderer: Box},    
-        initialTrampoline: { body: initialTrampoline, size: [200, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                               
+        'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
+        // initialCircle: { body: initialCircle, size: [boxSize], color: '#4441f4', renderer: Box},    
+        // initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                               
     }
 }
 

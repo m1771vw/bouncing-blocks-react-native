@@ -1,8 +1,9 @@
 import Box from "../Box";
+import { Dimensions } from 'react-native';
 import Matter from "matter-js";
 import _ from "lodash";
 
-let boxIds = 0;
+let boxIds = 1;
 
 // Function that takes in a state and object of touches and screen
 const CreateBox = (entities, { touches, screen }) => {
@@ -18,9 +19,9 @@ const CreateBox = (entities, { touches, screen }) => {
 			boxSize,
             { frictionAir: 0.021,
               friction: 0.01,
-              restitution: 2.0 } // Faster it moves in space. Regular friction means how much it slides
+              restitution: 1.5 } // Faster it moves in space. Regular friction means how much it slides
 		);
-		Matter.World.add(world, [body]);
+		// Matter.World.add(world, [body]);
 
 		entities[++boxIds] = { // Creates new Entity Property and creates entity
 			body: body,
@@ -36,4 +37,45 @@ const CreateBox = (entities, { touches, screen }) => {
      */
 };
 
-export default CreateBox;
+const createBoxes = (entities, events) => {
+	let world = entities["physics"].world; 
+	const { width, height } = Dimensions.get("screen");
+	const boxSize = Math.trunc(Math.max(width, height) * 0.075);
+	let body = Matter.Bodies.rectangle( // Body = rectangle(x, y, width, height, [options])
+		100,
+		100,
+		boxSize,
+		boxSize,
+		{ frictionAir: 0.01,
+		friction: 0.0,
+		restitution: 1 } // Faster it moves in space. Regular friction means how much it slides
+	);
+		Matter.World.add(world, [body]);
+		entities[`box-${boxIds++}`] = {
+			body: body,
+			size: [boxSize, boxSize],
+			color: boxIds % 2 == 0 ? "#41d0f4" : "#689FF9",
+			// color: "#4286f4",
+			renderer: Box,
+			box: true
+		};
+};
+
+let lastSpawn = null;
+
+const spawnBoxTimer = (dispatch, time) => {
+	lastSpawn = time.current;
+};
+
+export default (entities, { events, time, dispatch }) => {
+	
+	if (lastSpawn == null) {
+		lastSpawn = time.current;
+	}
+	if (time.current - lastSpawn > 3000 && boxIds < 3){
+		lastSpawn = time.current;
+		createBoxes(entities, events);
+	}
+
+	return entities;
+};

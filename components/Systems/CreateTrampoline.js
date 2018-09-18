@@ -28,6 +28,7 @@ const CreateTrampoline = (entities, { touches, screen }) => {
             // color: boxIds % 2 == 0 ? "pink" : "#B8E986",
             color: 'grey',
             renderer: Trampoline,
+            name: 'createdTrampoline: '+ boxIds,
             trampoline: true
 		};
 	});
