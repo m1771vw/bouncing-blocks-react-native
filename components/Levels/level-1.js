@@ -3,8 +3,9 @@ import { Dimensions } from "react-native";
 import Matter from "matter-js";
 import Box from '../Box';
 import Trampoline from '../Trampoline';
+import TrampolineCount from '../TrampolineCount';
 import { collisionCategories } from "../Utilities/constants";
-
+import Score from '../Score';
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 const { width, height } = Dimensions.get("screen");
 const boxSize = Math.trunc(Math.max(width, height) * 0.075);
@@ -40,8 +41,10 @@ export default LevelOne => {
         rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height/2], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         floor: { body: floor, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
-                                                                                       // Each property has a value that has renderer and renderer's props
+                                                                            // Each property has a value that has renderer and renderer's props
         'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
+        'score' : { position: {x: 100, y: 100}, size: [200,200], renderer: Score},
+        'trampolineCount': { position: { x: width - 50, y: 100 }, size: [200,200], renderer: TrampolineCount}
         // initialCircle: { body: initialCircle, size: [boxSize], color: '#4441f4', renderer: Box},    
         // initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                               
     }
