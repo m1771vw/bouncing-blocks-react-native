@@ -5,7 +5,7 @@ import _ from "lodash";
 let trampolineID = 0;
 
 // Function that takes in a state and object of touches and screen
-const CreateTrampoline = (entities, { touches, screen }) => {
+const CreateTrampoline = (entities, { touches, screen, dispatch }) => {
     let world = entities["physics"].world;  // From Game Engine - physics: { engine: engine, world: world, constraint: constraint }
                                             // World comes from Game Engine's entities. 
                                             // Entities will have physics passed in and a world as part of its object
@@ -24,7 +24,8 @@ const CreateTrampoline = (entities, { touches, screen }) => {
                      } // Faster it moves in space. Regular friction means how much it slides
             );
             Matter.World.add(world, [body]);
-    
+            dispatch({ type: 'decrease-trampolines'});
+
             entities['createdTrampoline: '+ ++trampolineID] = { // Creates new Entity Property and creates entity
                 body: body,
                 size: [trampolineWidth, trampolineHeight],

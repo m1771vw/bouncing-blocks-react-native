@@ -43,8 +43,8 @@ export default LevelOne => {
         floor: { body: floor, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
                                                                             // Each property has a value that has renderer and renderer's props
         'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
-        'score' : { position: {x: 100, y: 100}, size: [200,200], renderer: Score},
-        'trampolineCount': { position: { x: width - 50, y: 100 }, size: [200,200], renderer: TrampolineCount}
+        // 'score' : { position: {x: 100, y: 100}, size: [200,200], renderer: Score},
+        // 'trampolineCount': { position: { x: width - 50, y: 100 }, size: [200,200], renderer: TrampolineCount}
         // initialCircle: { body: initialCircle, size: [boxSize], color: '#4441f4', renderer: Box},    
         // initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                               
     }

@@ -6,7 +6,7 @@ const updatePhysicsEngine = (entities,time) => {
 	// return entities;
 };
 
-const removeEntitiesThatHaveFallenTooFar = entities => {
+const removeEntitiesThatHaveFallenTooFar = (entities, dispatch) => {
     let world = entities['physics'].world;
     // console.log('InitialBox: ', entities['initialBox'])
     // console.log(Object.keys(entities))
@@ -16,6 +16,7 @@ const removeEntitiesThatHaveFallenTooFar = entities => {
                 if(entities[key].body.position.y > 1000 || entities[key].body.position.x > 1000){
                     console.log("Removing something out of bounds");
                     Matter.World.remove(entities.physics.world, entities[key].body);
+                    dispatch({type:'increase-score'})
                     delete entities[key];
                 }
             }
@@ -41,7 +42,7 @@ const removeEntitiesThatHaveFallenTooFar = entities => {
 };
 
 export default (entities, { time, dispatch }) => {
-	removeEntitiesThatHaveFallenTooFar(entities);
+	removeEntitiesThatHaveFallenTooFar(entities, dispatch);
 	// checkIfMarioHasFallenOff(entities, dispatch);
 	// updatePlatformCollisionFilters(entities);
 	updatePhysicsEngine(entities, time);
