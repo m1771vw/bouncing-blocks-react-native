@@ -25,8 +25,8 @@ const floor = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, bo
     collisionFilter: { category: collisionCategories.wall }});             // Entities will return an object 
 const roof = Matter.Bodies.rectangle(width / 2, 0, width, boxSize, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 const leftWall = Matter.Bodies.rectangle(0, height / 2, width * 0.05, height, { isStatic: true, collisionFilter: { category: collisionCategories.wall }});
-const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.25 , width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
-const rightWallLower = Matter.Bodies.rectangle(width, height , width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
+const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.10, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
+const rightWallLower = Matter.Bodies.rectangle(width, height, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 // - Matter.World.add(world, [body, floor]);
 // Matter.Resolver._restingThresh = 0.01
 Matter.World.add(world, [initialBox, leftWall, rightWallUpper, rightWallLower, initialTrampoline, roof]); // Add to the world

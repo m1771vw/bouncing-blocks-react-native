@@ -1,17 +1,40 @@
 import React, { PureComponent } from "react";
-import { AppRegistry, StyleSheet, StatusBar, Text, View } from "react-native";
+import { Dimensions, AppRegistry, StyleSheet, StatusBar, Text, View } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import Systems from "./components/Systems";
 import LevelOne from './components/Levels/level-1';
+import GameOver from './components/GameOver';
 
+const startingLives = 2
 export default class App extends PureComponent {
   state={
     score: 0,
     trampolines: 15,
-    lives: 2,
+    lives: startingLives,
     gameIsRunning: true,
     gameOver: false
   }
+  onLayout(e) {
+    const {width, height} = Dimensions.get('screen')
+    console.log(width, height)
+  }
+  restart = () => {
+    this.refs.engine.swap(LevelOne());
+    this.setState({
+      gameIsRunning: true,
+      gameOver: false,
+      lives: startingLives + 1
+    });
+  };
+  quit = () => {
+    this.setState({
+      running: false,
+      gameOver: false,
+      // princessRescued: false
+    });
+
+    // if (this.props.onClose) this.props.onClose();
+  };
   gameOver = () => {
     this.setState({
       gameIsRunning: false
@@ -71,20 +94,26 @@ export default class App extends PureComponent {
   render() {
     return (
       <GameEngine 
+        ref={'engine'}
         onEvent={this.handleEvent}
         running={this.state.gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
         entities={LevelOne()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
-        <View style={styles.scoreContainer}>
+        <View onLayout={this.onLayout.bind(this)} style={styles.scoreContainer}>
         <Text>Score: {this.state.score}</Text>
         <Text>Lives: {this.state.lives}</Text>
         <Text>Trampoline: {this.state.trampolines}</Text>
+        </View>
+        <View>
+          
         {this.state.gameOver && (
-            <Text> Game over </Text>
+            /* <Text> Game over </Text> */
+            <GameOver onPlayAgain={this.restart} onQuit={this.quit} />
           )}
         </View>
+        
       </GameEngine>
     );
   }
