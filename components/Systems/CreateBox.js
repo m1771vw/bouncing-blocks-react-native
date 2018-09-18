@@ -2,6 +2,7 @@ import Box from "../Box";
 import { Dimensions } from 'react-native';
 import Matter from "matter-js";
 import _ from "lodash";
+import { collisionCategories } from "../Utilities/constants";
 
 let boxIds = 1;
 
@@ -46,11 +47,15 @@ const createBoxes = (entities, events) => {
 		100,
 		boxSize,
 		boxSize,
-		{ frictionAir: 0.01,
-		friction: 0.0,
-		restitution: 1 } // Faster it moves in space. Regular friction means how much it slides
+		{ frictionAir: 0.01, // Faster it moves in space. Regular friction means how much it slides
+		friction: 0.0, 
+		restitution: 1,
+		collisionFilter: {
+			category: collisionCategories.box,
+			mask: collisionCategories.wall | collisionCategories.trampoline}} 
 	);
 		Matter.World.add(world, [body]);
+
 		entities[`box-${boxIds++}`] = {
 			body: body,
 			size: [boxSize, boxSize],
@@ -58,16 +63,14 @@ const createBoxes = (entities, events) => {
 			// color: "#4286f4",
 			renderer: Box,
 			box: true
+			
 		};
 };
 
 let lastSpawn = null;
 
-const spawnBoxTimer = (dispatch, time) => {
-	lastSpawn = time.current;
-};
 
-export default (entities, { events, time, dispatch }) => {
+export default (entities, { events, time }) => {
 	
 	if (lastSpawn == null) {
 		lastSpawn = time.current;
