@@ -23,7 +23,7 @@ const checkTrampolineHitBoxes = (trampolineKey, boxes, entities) => {
     for(let i = 0; i < boxes.length; i++) {
         let box = entities[boxes[i]]
         if (distance(trampoline.body.position, box.body.position) < 80) {
-            Matter.Body.applyForce(box.body, box.body.position, {x:0.01, y:-0.15})
+            Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
             Matter.World.remove(entities.physics.world, trampoline.body);
             delete entities[trampolineKey];
             break;
