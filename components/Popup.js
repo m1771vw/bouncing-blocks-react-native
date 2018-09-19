@@ -44,8 +44,11 @@ export default class Popup extends PureComponent {
 				>
 					Play Again
 				</Button>
+				<Button onPress={this.props.nextLevel} style={styles.cancelButton}>
+					Next Level
+				</Button>
 				<Button onPress={this.props.onQuit} style={styles.cancelButton}>
-					No Thanks!
+					Quit
 				</Button>
 			</Animatable.View>
 		);
@@ -76,7 +79,7 @@ const styles = EStyleSheet.create({
 	cancelButton: {
 		maxWidth: "$donkeyKongMenuMaxWidth",
 		alignSelf: "center",
-		marginBottom: 30,
+		marginBottom: 10,
 		backgroundColor: "#ff4136"
 	}
 });

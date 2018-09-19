@@ -21,31 +21,17 @@ const removeEntitiesThatHaveFallenTooFar = (entities, dispatch) => {
                     Matter.World.remove(entities.physics.world, entities[key].body);
                     dispatch({type:'decrease-lives'})
                     delete entities[key];
+                    dispatch({type:'remove-box'})
                 } else if(entities[key].body.position.y > height || entities[key].body.position.x > width){
                     console.log("Add Score: Removing something out of bounds");
                     Matter.World.remove(entities.physics.world, entities[key].body);
                     dispatch({type:'increase-score'})
                     delete entities[key];
+                    dispatch({type:'remove-box'})
                 }
             }
         }
-        // key => 
-        //     key === 'initialBox' &&
-        //     entities[key].body.position.y > 1500 ||
-        //     entities[key].body.position.x > 1500
-        // console.log('EntityKey', entities["physics"].body)
-            // key === 'initialBox' &&
-            // entities[key].body &&
-            // entities[key].body.position.y > 1500 ||
-            // entities[key].body.position.x > 1500
-	);
-
-	// removals.forEach(key => {
-    //     console.log("Removing something out of bounds");
-    //     Matter.World.remove(entities.physics.world, entities[key].body);
-    //     delete entities[key];
-	// });
-    
+	);    
 	return entities;
 };
 

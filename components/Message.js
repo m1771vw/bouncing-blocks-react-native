@@ -40,7 +40,7 @@ const styles = EStyleSheet.create({
 	},
 	textContainer: {
 		backgroundColor: "#FFF",
-		padding: 10,
+		padding: 1,
 		borderRadius: 11,
 		marginLeft: 30,
 		marginRight: 30,

@@ -1,36 +1,118 @@
 import React, { PureComponent } from "react";
-import { Dimensions, AppRegistry, StyleSheet, StatusBar, Text, View } from "react-native";
+import { Dimensions, AppRegistry, StyleSheet, StatusBar, Text, View, Platform } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import Systems from "./components/Systems";
 import LevelOne from './components/Levels/level-1';
+import LevelTwo from './components/Levels/level-2';
+import LevelThree from './components/Levels/level-3';
 import GameOver from './components/GameOver';
+import NextLevel from './components/NextLevel';
+import EStyleSheet from "react-native-extended-stylesheet";
 
-const startingLives = 2
+const STARTINGLIVES = 100
+const STARTINGTRAMPOLINES = 20
+const BOXREMOVELIMIT = 1
+// const defaultTheme = {
+//   $donkeyKongMenuMaxWidth: 500,
+//   $donkeyKongMenuFont: Platform.OS === "ios" ? "System" : "normal",
+//   $donkeyKongMenuBackgroundColor: "black",
+//   $donkeyKongMenuPrimaryColor: "#2068E3",
+//   $donkeyKongMenuSecondaryColor: "#00FFFF"//"#25D9D9"
+// };
 export default class App extends PureComponent {
   state={
     score: 0,
-    trampolines: 15,
-    lives: startingLives,
+    removedBoxes: 0,
+    trampolines: STARTINGTRAMPOLINES,
+    lives: STARTINGLIVES,
     gameIsRunning: true,
-    gameOver: false
+    gameOver: false,
+    levelBeat: false,
+    currentLevel: 'level-1'
   }
+
+  // async componentWillMount() {
+  //   await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
+  // }
+
   onLayout(e) {
     const {width, height} = Dimensions.get('screen')
-    console.log(width, height)
   }
-  restart = () => {
-    this.refs.engine.swap(LevelOne());
+  nextLevel = () => {
+    console.log("Trying to go to next level")
+    this.turnOffText();
+    switch(this.state.currentLevel) {
+      case 'level-1':
+      this.refs.engine.swap(LevelTwo());
+      setTimeout(() => {
+        this.resetState('level-2');
+      }, 1000);
+      // this.resetState('level-2')
+        break;
+      case 'level-2':
+      this.refs.engine.swap(LevelThree());
+      setTimeout(() => {
+        this.resetState('level-3');
+      }, 1000);
+      // this.resetState('level-3')
+      break;
+      case 'level-3':
+      this.refs.engine.swap(LevelOne());
+      setTimeout(() => {
+        this.resetState('level-1');
+      }, 1000);
+      // this.resetState('level-1')
+      break;
+    }
+    
+  }
+  turnOffText = () => {
     this.setState({
+      gameOver: false,
+      levelBeat: false
+    })
+  }
+  resetState = (level) => {
+    this.setState({
+      currentLevel: level, 
       gameIsRunning: true,
       gameOver: false,
-      lives: startingLives + 1
-    });
+      levelBeat: false, 
+      trampolines: STARTINGTRAMPOLINES, 
+      lives: STARTINGLIVES,
+      removedBoxes: 0
+      })
+  }
+  getLevelFromState = () => {
+    switch(this.state.currentLevel){
+      case 'level-1':
+        return LevelOne()
+      case 'level-2':
+        return LevelTwo()
+      case 'level-3':
+        return LevelThree()
+    }
+  }
+  restart = () => {
+    this.refs.engine.swap(this.getLevelFromState())
+    this.turnOffText();
+    setTimeout(() => {
+      this.resetState(this.state.currentLevel);
+    }, 1000);
+    // this.setState({
+    //   gameIsRunning: true,
+    //   gameOver: false,
+    //   lives: STARTINGLIVES + 1,
+    //   trampolines: STARTINGTRAMPOLINES,
+    //   removedBoxes: 0,
+    //   currentLevel: 'level-1'
+    // }, () => {this.refs.engine.swap(LevelOne())});
+
   };
   quit = () => {
     this.setState({
-      running: false,
+      gameIsRunning: false,
       gameOver: false,
-      // princessRescued: false
     });
 
     // if (this.props.onClose) this.props.onClose();
@@ -61,8 +143,23 @@ export default class App extends PureComponent {
       lives: this.state.lives - 1
     }, this.checkIfGameOver)
   }
+  levelBeat = () => {
+    this.setState({
+      levelBeat: true,
+      gameIsRunning: false
+    })
+  }
+  removeBox = () => {
+    this.setState({
+      removedBoxes: this.state.removedBoxes + 1
+    }, this.checkIfGameOver)
+  }
   checkIfGameOver = () => {
-    this.state.lives <= 0 
+    this.state.lives !== 0 && this.state.removedBoxes === BOXREMOVELIMIT
+    ? this.setState({
+      levelBeat: true,
+      gameIsRunning: false
+    }): this.state.lives <= 0 || this.state.removedBoxes === BOXREMOVELIMIT
     ? this.setState({
       gameOver: true,
       gameIsRunning: false
@@ -71,13 +168,13 @@ export default class App extends PureComponent {
       gameIsRunning: true
     })
   }
+
   handleEvent = ev => {
     switch (ev.type) {
       case "increase-trampolines":
         this.increaseTrampolines();
         break;
       case "increase-score":
-      // console.log("Trying to increase score")
         this.increaseScore();
         break;
       case "decrease-trampolines":
@@ -89,31 +186,46 @@ export default class App extends PureComponent {
       case "game-over":
         this.gameOver();
         break;
+      case "level-beat":
+        this.levelBeat();
+        break;
+      case "remove-box":
+        this.removeBox();
+        break;
     }
   };
+
   render() {
+    let {container, scoreFont, scoreContainer, endMessage} = styles
+    let {gameIsRunning, score, lives, trampolines} = this.state
     return (
       <GameEngine 
         ref={'engine'}
         onEvent={this.handleEvent}
-        running={this.state.gameIsRunning}
+        running={gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
         entities={LevelOne()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
-        <View onLayout={this.onLayout.bind(this)} style={styles.scoreContainer}>
-        <Text>Score: {this.state.score}</Text>
-        <Text>Lives: {this.state.lives}</Text>
-        <Text>Trampoline: {this.state.trampolines}</Text>
+        <View onLayout={this.onLayout.bind(this)} style={scoreContainer}>
+          <Text style={scoreFont}>Score: {score}</Text>
+          <Text style={scoreFont}>Lives: {lives}</Text>
+          {/* <Text>State: {gameIsRunning && 'Running'}</Text> */}
+          {/* <Text>Level Beat: {(!levelBeat) && 'Not Beaten'}</Text> */}
+          <Text style={scoreFont}>Trampolines Left: {trampolines}</Text>
+          {/* <Text>Removed: {removedBoxes}</Text> */}
         </View>
-        <View>
-          
+        <View style={endMessage}>
         {this.state.gameOver && (
             /* <Text> Game over </Text> */
-            <GameOver onPlayAgain={this.restart} onQuit={this.quit} />
+            <GameOver onPlayAgain={this.restart} nextLevel={this.nextLevel}  onQuit={this.quit} />
           )}
+          {
+            this.state.levelBeat && (
+              <NextLevel onPlayAgain={this.restart} nextLevel={this.nextLevel}  onQuit={this.quit}/>
+            )
+          }
         </View>
-        
       </GameEngine>
     );
   }
@@ -127,8 +239,16 @@ const styles = StyleSheet.create({
   scoreContainer: {
     flexDirection:'row',
     justifyContent:'space-between',
-    margin: 5
-
+    margin: 25
+  },
+  scoreFont: {
+    fontSize: 18
+  },
+  endMessage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'black'
   }
 });
 

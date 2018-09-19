@@ -20,8 +20,8 @@ const world = engine.world;                                     // Required for 
 const initialBox = Matter.Bodies.rectangle(boxSize, 100, boxSize, boxSize, 
   { frictionAir: 0.01, friction: 0.00, restitution: 1,	collisionFilter: 
   { category: collisionCategories.box, mask: collisionCategories.wall }});
-const initialTrampoline = Matter.Bodies.rectangle(width, height - (boxSize * 2) - 50, 100, 10, { isStatic: true });
-const floor = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true,
+const initialTrampoline = Matter.Bodies.rectangle(width * 0.15, height - (boxSize) - 50, 100, 10, { isStatic: true });
+const floor = Matter.Bodies.rectangle(width / 2, height, width, boxSize, { isStatic: true,
     collisionFilter: { category: collisionCategories.wall }});             // Entities will return an object 
 const roof = Matter.Bodies.rectangle(width / 2, 0, width, boxSize, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 const leftWall = Matter.Bodies.rectangle(0, height / 2, width * 0.05, height, { isStatic: true, collisionFilter: { category: collisionCategories.wall }});
@@ -29,7 +29,7 @@ const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.10, width * 0.0
 const rightWallLower = Matter.Bodies.rectangle(width, height, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 // - Matter.World.add(world, [body, floor]);
 // Matter.Resolver._restingThresh = 0.01
-Matter.World.add(world, [initialBox, leftWall, rightWallUpper, rightWallLower, initialTrampoline, roof]); // Add to the world
+Matter.World.add(world, [initialBox, floor, leftWall, rightWallUpper, rightWallLower, initialTrampoline, roof]); // Add to the world
 export default LevelOne => {
     // - Returns an entity
     // console.log(floor);
@@ -37,16 +37,16 @@ export default LevelOne => {
         // physics: { engine: engine, world: world, constraint: constraint },
         physics: { engine: engine, world: world },
         roof: { body: roof, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
-        leftWall: { body: leftWall, size: [width * 0.05, height], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
-        rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height/2], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
-        rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
-        floor: { body: floor, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        leftWall: { body: leftWall, size: [width * 0.05, height], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height/2], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        floor: { body: floor, size: [width, boxSize], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
                                                                             // Each property has a value that has renderer and renderer's props
-        'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
+        // 'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
         // 'score' : { position: {x: 100, y: 100}, size: [200,200], renderer: Score},
         // 'trampolineCount': { position: { x: width - 50, y: 100 }, size: [200,200], renderer: TrampolineCount}
         // initialCircle: { body: initialCircle, size: [boxSize], color: '#4441f4', renderer: Box},    
-        // initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                               
+        initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                               
     }
 }
 

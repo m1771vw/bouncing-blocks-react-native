@@ -6,10 +6,9 @@ import Message from "./Message";
 export default class GameOver extends PureComponent {
 	render() {
 		return (
-			<Popup onPlayAgain={this.props.onPlayAgain} nextLevel={this.props.nextLevel} onQuit={this.props.onQuit}>
+			<Popup onPlayAgain={this.props.onPlayAgain} nextLevel={this.props.nextLevel} onQuit={this.props.quit}>
 				<Message>
-					Too many blocks died!
-					Better luck next time!
+					Level Beat!
 				</Message>
 			</Popup>
 		);
