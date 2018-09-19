@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { View, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import * as Animatable from "react-native-animatable";
 import EStyleSheet from "react-native-extended-stylesheet";
 import TypeWriter from "react-native-typewriter";
@@ -31,7 +31,7 @@ export default class Message extends PureComponent {
 	}
 }
 
-const styles = EStyleSheet.create({
+const styles = StyleSheet.create({
 	message: {
 		marginTop: 4
 	},
@@ -47,7 +47,7 @@ const styles = EStyleSheet.create({
 		minHeight: 40
 	},
 	text: {
-		fontFamily: "$donkeyKongMenuFont",
+		// fontFamily: "$donkeyKongMenuFont",
 		fontSize: 18
 	}
 });

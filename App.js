@@ -12,13 +12,13 @@ import EStyleSheet from "react-native-extended-stylesheet";
 const STARTINGLIVES = 100
 const STARTINGTRAMPOLINES = 20
 const BOXREMOVELIMIT = 1
-// const defaultTheme = {
-//   $donkeyKongMenuMaxWidth: 500,
-//   $donkeyKongMenuFont: Platform.OS === "ios" ? "System" : "normal",
-//   $donkeyKongMenuBackgroundColor: "black",
-//   $donkeyKongMenuPrimaryColor: "#2068E3",
-//   $donkeyKongMenuSecondaryColor: "#00FFFF"//"#25D9D9"
-// };
+const defaultTheme = {
+  $donkeyKongMenuMaxWidth: 500,
+  $donkeyKongMenuFont: Platform.OS === "ios" ? "System" : "normal",
+  $donkeyKongMenuBackgroundColor: "black",
+  $donkeyKongMenuPrimaryColor: "#2068E3",
+  $donkeyKongMenuSecondaryColor: "#00FFFF"//"#25D9D9"
+};
 export default class App extends PureComponent {
   state={
     score: 0,
@@ -31,9 +31,9 @@ export default class App extends PureComponent {
     currentLevel: 'level-1'
   }
 
-  // async componentWillMount() {
-  //   await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
-  // }
+  async componentWillMount() {
+    await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
+  }
 
   onLayout(e) {
     const {width, height} = Dimensions.get('screen')
@@ -246,9 +246,9 @@ const styles = StyleSheet.create({
   },
   endMessage: {
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     borderWidth: 2,
-    borderColor: 'black'
+    borderColor: 'grey'
   }
 });
 
