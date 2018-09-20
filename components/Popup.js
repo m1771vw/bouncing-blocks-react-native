@@ -6,18 +6,19 @@ import Button from "./Button";
 
 export default class Popup extends PureComponent {
 	constructor(props) {
-		super(props);
+		super(props);			
 		this.state = {};
 	}
 
 	render() {
 		return (
+
 			<Animatable.View
-				useNativeDriver
-				// style={styles.container}
-				animation="bounceInUp"
-			>
-				{/* <ScrollView
+			useNativeDriver
+			// style={styles.container}
+			animation="bounceInUp"
+		>
+				{/* /* <ScrollView
 					ref={"scrollView"}
 					// onContentSizeChange={_ => {
 					// 	this.refs.scrollView.scrollToEnd({
@@ -34,9 +35,9 @@ export default class Popup extends PureComponent {
 					// 		minHeight: this.state.scrollViewHeight
 					// 	}
 					// ]}
-				>
-					{this.props.children}
-				</ScrollView> */}
+				> */
+					/* {this.props.children}
+				</ScrollView> */ }
 				<View>{this.props.children}</View>
 				<Button
 					onPress={this.props.onPlayAgain}

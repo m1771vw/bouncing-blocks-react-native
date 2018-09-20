@@ -6,6 +6,7 @@ let trampolineID = 0;
 
 // Function that takes in a state and object of touches and screen
 const CreateTrampoline = (entities, { touches, screen, dispatch }) => {
+    
     let world = entities["physics"].world;  // From Game Engine - physics: { engine: engine, world: world, constraint: constraint }
                                             // World comes from Game Engine's entities. 
                                             // Entities will have physics passed in and a world as part of its object
@@ -15,6 +16,7 @@ const CreateTrampoline = (entities, { touches, screen, dispatch }) => {
     // console.log('Num of Trampolines: ', numOfTrampolines.length)
     if (numOfTrampolines.length < 15) {
         touches.filter(t => t.type === "press").forEach(t => { // Filte for 'press' types. For each type do the function.
+        // console.log("Creating trampoline at: x", t.event.pageX,t.event.pageY)
             let body = Matter.Bodies.rectangle( // Body = rectangle(x, y, width, height, [options])
                 t.event.pageX,
                 t.event.pageY,
