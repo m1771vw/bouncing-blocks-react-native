@@ -38,6 +38,10 @@ const CreateTrampoline = (entities, { touches, screen, dispatch }) => {
                 trampoline: true
             };
         });
+    } else {
+        touches.filter(t => t.type === "press").forEach(t => {
+            dispatch({type: 'not-enough-trampolines'})
+        })
     }
     return entities; 
     /**

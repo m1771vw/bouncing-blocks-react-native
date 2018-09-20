@@ -12,7 +12,7 @@ import EStyleSheet from "react-native-extended-stylesheet";
 // import MainMenu from "./components/Menus/MainMenu";
 import Title from './components/Menus/Title';
 const STARTINGLIVES = 100
-const STARTINGTRAMPOLINES = 20
+const STARTINGTRAMPOLINES = 14
 const BOXREMOVELIMIT = 5
 // const defaultTheme = {
 //   $bouncyBoxMenuMaxWidth: 500,
@@ -41,7 +41,7 @@ Animatable.initializeRegistryWithDefinitions({
 //   useNativeDriver
 //   style={styles.addScore}
 //   animation={'fadeInOut'}
-//   onAnimationEnd={this.addScoreDisappear}
+//   onAnimationEnd={this.addScoreAnimationDisappear}
 // >+1</Animatable.Text>)
 // }
 export default class App extends PureComponent {
@@ -56,7 +56,9 @@ export default class App extends PureComponent {
     currentLevel: 'level-1',
     titleVisible: true,
     showTitle: true,
-    showAddScore: false,
+    showAddScoreAnimation: false,
+    showLoseLifeAnimation: false,
+    showNoTrampolineAnimation: false
     // scoreAnimationArray: []
     
   }
@@ -73,16 +75,6 @@ export default class App extends PureComponent {
     await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
   }
 
-  onLayout(e) {
-    const {width, height} = Dimensions.get('screen')
-    console.log('width: ', width, 'height: ', height)
-
-  }
-  // foo = async () => {
-  //   var wait = ms => new Promise((r, j)=>setTimeout(r, ms))
-  //   await wait(2000);
-  //   await this.setState({gameIsRunning: true})
-  // }
   startGame = () => {
     console.log("running game")
     this.setState({
@@ -95,9 +87,6 @@ export default class App extends PureComponent {
     this.setState({
       titleVisible: false,
     })
-    // let spinoff = async () => { try { await this.foo(); } catch (e) { console.log(e); } };
-    // spinoff(); // no await!
-    // await this.setState({gameIsRunning: true})
   }
 
   nextLevel = () => {
@@ -187,16 +176,11 @@ export default class App extends PureComponent {
   increaseScore = () => {
     console.log("Trying to increase score")
       this.setState({
-        showAddScore: false
+        showAddScoreAnimation: false
       }, () => {this.setState({
         score: this.state.score + 1,
-        showAddScore: true
+        showAddScoreAnimation: true
       })})
-      // this.setState({
-      //   score: this.state.score + 1,
-      //   showAddScore: true
-      // })
-    
   }
   increaseTrampolines = () => {
     this.setState({
@@ -210,8 +194,12 @@ export default class App extends PureComponent {
   }
   decreaseLives = () => {
     this.setState({
-      lives: this.state.lives - 1
-    }, this.checkIfGameOver)
+      showLoseLifeAnimation: false
+    }, () => {this.setState({
+      lives: this.state.lives - 1,
+      showLoseLifeAnimation: true
+    })}, this.checkIfGameOver)
+
   }
   levelBeat = () => {
     this.setState({
@@ -238,9 +226,26 @@ export default class App extends PureComponent {
       gameIsRunning: true
     })
   }
-  addScoreDisappear = () => {
+  addScoreAnimationDisappear = () => {
     this.setState({
       showAddScore: false
+    })
+  }
+  showLoseLifeAnimationDisappear = () => {
+    this.setState({
+      showLoseLifeAnimation: false
+    })
+  }
+  showNoTrampolineAnimation = () => {
+    this.setState({
+      showNoTrampolineAnimation: false
+    }, () => {this.setState({
+      showNoTrampolineAnimation: true
+    })})
+  }
+  showNoTrampolineAnimationDisappear = () => {
+    this.setState({
+      showNoTrampolineAnimation: false
     })
   }
   handleEvent = ev => {
@@ -253,6 +258,9 @@ export default class App extends PureComponent {
         break;
       case "decrease-trampolines":
         this.decreaseTrampolines();
+        break;
+      case 'not-enough-trampolines':
+        this.showNoTrampolineAnimation();
         break;
       case "decrease-lives":
         this.decreaseLives();
@@ -280,7 +288,7 @@ export default class App extends PureComponent {
     //         useNativeDriver
     //         style={styles.addScore}
     //         animation={'fadeInOut'}
-    //         onAnimationEnd={this.addScoreDisappear}
+    //         onAnimationEnd={this.addScoreAnimationDisappear}
     //   >+1</Animatable.Text>
     // )
   }
@@ -303,22 +311,35 @@ export default class App extends PureComponent {
         {this.state.gameIsRunning && (
           <View style={scoreContainer}>
           <Text style={scoreFont}>Score: {score}</Text>
-          {this.state.showAddScore &&
+          {this.state.showAddScoreAnimation &&
           <Animatable.Text 
             useNativeDriver
             style={styles.addScore}
             animation={'fadeInOut'}
-            onAnimationEnd={this.addScoreDisappear}
+            onAnimationEnd={this.addScoreAnimationDisappear}
       >+1</Animatable.Text>}
           {/* {scoreArray.map((score) => {
             return score
           })} */}
           <Text style={scoreFont}>Lives: {lives}</Text>
-
+          {this.state.showLoseLifeAnimation &&
+          <Animatable.Text 
+            useNativeDriver
+            style={styles.loseLife}
+            animation={'fadeInOut'}
+            onAnimationEnd={this.showLoseLifeAnimationDisappear}
+      >-1</Animatable.Text>}
 
           {/* <Text>State: {gameIsRunning && 'Running'}</Text> */}
           {/* <Text>Level Beat: {(!levelBeat) && 'Not Beaten'}</Text> */}
           <Text style={scoreFont}>Trampolines Left: {trampolines}</Text>
+          {this.state.showNoTrampolineAnimation &&
+          <Animatable.Text 
+            useNativeDriver
+            style={styles.noTrampoline}
+            animation={'fadeInOut'}
+            onAnimationEnd={this.showNoTrampolineAnimationDisappear}
+      >No Trampolines Left!</Animatable.Text>}
           {/* <Text>Removed: {removedBoxes}</Text> */}
         </View>
         )}
@@ -358,10 +379,25 @@ const styles = StyleSheet.create({
     
   },
   addScore: {
-    fontSize: 100,
+    fontSize: 30,
     position: 'absolute',
-    marginLeft: 80
+    marginLeft: 80,
+    color:'green'
   },
+  loseLife: {
+    fontSize: 30,
+    position: 'absolute',
+    marginLeft: 320,
+    marginBottom: 40,
+    color: 'red'
+  },
+  noTrampoline: {
+    fontSize: 30,
+    position: 'absolute',
+    marginLeft: 150,
+    marginTop: 150
+  },
+
   endMessage: {
     alignItems: 'center',
     // justifyContent: 'center',
