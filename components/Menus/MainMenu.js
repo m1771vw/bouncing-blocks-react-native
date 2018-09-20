@@ -12,20 +12,20 @@ import {
 import EStyleSheet from "react-native-extended-stylesheet";
 import Title from "./Title";
 // import Heading from "./heading";
-// import Button from "./button";
+import Button from "../Button";
 // import Item from "./item";
 const maxWidth = 1000
-const { width, height } = Dimensions.get("screen");
+// const { width, height } = Dimensions.get("screen");
 export default class MainMenu extends PureComponent {
     onLayout(e) {
-        width = Dimensions.get('screen').width
-        height = Dimensions.get('screen').height
+        // width = Dimensions.get('screen').width
+        // height = Dimensions.get('screen').height
       }
     render() {
         return (
             <ScrollView
                 style={styles.container}
-                onLayout={this.onLayout.bind(this)}
+                // onLayout={this.onLayout}
                 contentContainerStyle={styles.contentContainer}>
                 <Title/>
                 <Button onPress={this.props.onPlayGame}>Play Game</Button>

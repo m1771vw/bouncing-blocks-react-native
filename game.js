@@ -30,9 +30,16 @@ export default class App extends PureComponent {
     levelBeat: false,
     currentLevel: 'level-1'
   }
-
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.visible) {
+      this.setState({
+        gameIsRunning: true
+      });
+    }
+  }
   onLayout(e) {
     const {width, height} = Dimensions.get('screen')
+    console.log('width: ', width, 'height: ', height)
   }
   nextLevel = () => {
     console.log("Trying to go to next level")
@@ -208,7 +215,8 @@ export default class App extends PureComponent {
         systems={Systems} // Array of Systems
         entities={LevelOne()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
-        <View onLayout={this.onLayout.bind(this)} style={scoreContainer}>
+        {/* <View onLayout={this.onLayout.bind(this)} style={scoreContainer}> */}
+        <View style={scoreContainer}>
           <Text style={scoreFont}>Score: {score}</Text>
           <Text style={scoreFont}>Lives: {lives}</Text>
           {/* <Text>State: {gameIsRunning && 'Running'}</Text> */}

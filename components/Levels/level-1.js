@@ -8,6 +8,10 @@ import { collisionCategories } from "../Utilities/constants";
 import Score from '../Score';
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 const { width, height } = Dimensions.get("screen");
+console.log('level-1 width: ', width, 'height: ', height)
+// const tempWidth = width;
+// width = height
+// height = tempWidth;
 const boxSize = Math.trunc(Math.max(width, height) * 0.075);
 const engine = Matter.Engine.create({ enableSleeping: false }); // Required for Physics
 const world = engine.world;                                     // Required for Physics

@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { View, StatusBar, Platform, StyleSheet } from "react-native";
+import { Dimensions, View, StatusBar, Platform, StyleSheet } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import MainMenu from "./components/Menus/MainMenu";
 import Game from "./game";
@@ -24,6 +24,11 @@ export default class BouncyBox extends PureComponent {
     await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
   }
 
+  onLayout(e) {
+    const width = Dimensions.get('screen').width
+    const height = Dimensions.get('screen').height
+    console.log('App.js: width: ', width, 'height: ', height)
+  }
 
   toggleGame = gameVisible => {
     this.setState({
@@ -33,7 +38,9 @@ export default class BouncyBox extends PureComponent {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} 
+      onLayout={this.onLayout}
+      >
         <StatusBar barStyle={"light-content"} hidden={this.state.gameVisible} animated showHideTransition={"slide"} />
         <MainMenu onPlayGame={_ => this.toggleGame(true)} />
         <Game
