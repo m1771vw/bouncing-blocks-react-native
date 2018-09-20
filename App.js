@@ -11,9 +11,9 @@ import NextLevel from './components/NextLevel';
 import EStyleSheet from "react-native-extended-stylesheet";
 // import MainMenu from "./components/Menus/MainMenu";
 import Title from './components/Menus/Title';
-const STARTINGLIVES = 100
+const STARTINGLIVES = 1
 const STARTINGTRAMPOLINES = 14
-const BOXREMOVELIMIT = 5
+const BOXREMOVELIMIT = 2
 // const defaultTheme = {
 //   $bouncyBoxMenuMaxWidth: 500,
 //   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
@@ -86,6 +86,7 @@ export default class App extends PureComponent {
     console.log("Title no longer visisble");
     this.setState({
       titleVisible: false,
+      // showTitle: false
     })
   }
 
@@ -276,21 +277,14 @@ export default class App extends PureComponent {
         break;
     }
   };
-  increaseScoreAnimation = () => {
-    // console.log('trying to increase score animation')
-    // let newScoreArray = [...this.state.scoreAnimationArray, <ScoreAnimation/>]
-    // this.setState({
-    //   scoreAnimationArray: newScoreArray
-    // })
-    // return(
-      
-    //   <Animatable.Text 
-    //         useNativeDriver
-    //         style={styles.addScore}
-    //         animation={'fadeInOut'}
-    //         onAnimationEnd={this.addScoreAnimationDisappear}
-    //   >+1</Animatable.Text>
-    // )
+  quit = () => {
+    this.setState({
+      gameIsRunning: false,
+      gameOver: false,
+      levelBeat: false,
+      titleVisible: true,
+      showTitle: true,
+    })
   }
   render() {
     let {container, scoreFont, scoreContainer, endMessage, addScore} = styles
@@ -305,10 +299,10 @@ export default class App extends PureComponent {
         running={gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
-        entities={LevelOne()}> {/*Returns Object of entities*/}
+        entities={LevelTwo()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
         {/* <View onLayout={this.onLayout.bind(this)} style={scoreContainer}> */}
-        {this.state.gameIsRunning && (
+        {!this.state.showTitle && (
           <View style={scoreContainer}>
           <Text style={scoreFont}>Score: {score}</Text>
           {this.state.showAddScoreAnimation &&
