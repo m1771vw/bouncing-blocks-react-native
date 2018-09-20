@@ -53,7 +53,7 @@ export default class Button extends PureComponent {
 
 const styles = EStyleSheet.create({
   buttonContainer: {
-    backgroundColor: "$donkeyKongMenuPrimaryColor",
+    backgroundColor: "$bouncyBoxMenuPrimaryColor",
     borderRadius: 11,
     flexDirection: "row",
     marginLeft: 30,
@@ -61,7 +61,7 @@ const styles = EStyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     shadowOffset: { width: 0, height: 4 },
-    shadowColor: "$donkeyKongMenuSecondaryColor",
+    shadowColor: "$bouncyBoxMenuSecondaryColor",
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 4
@@ -79,6 +79,6 @@ const styles = EStyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowColor: "black",
     textShadowRadius: 2,
-    fontFamily: "$donkeyKongMenuFont"
+    fontFamily: "$bouncyBoxMenuFont"
   }
 });

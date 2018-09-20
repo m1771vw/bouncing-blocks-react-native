@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 		margin: 0,
 		padding: 0,
 		flex: 1,
-		backgroundColor: "black"
+		backgroundColor: 'transparent'
 	},
 	scrollViewContainer: {
 		width: 200,

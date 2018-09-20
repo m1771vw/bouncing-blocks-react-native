@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 		minHeight: 40
 	},
 	text: {
-		// fontFamily: "$donkeyKongMenuFont",
+		// fontFamily: "$bouncyBoxMenuFont",
 		fontSize: 18
 	}
 });
