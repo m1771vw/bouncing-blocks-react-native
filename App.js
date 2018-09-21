@@ -1,19 +1,21 @@
 import React, { PureComponent } from "react";
-import { Dimensions, AppRegistry, StyleSheet, StatusBar, Text, View, Platform, Modal } from "react-native";
+import { Dimensions, AppRegistry, StyleSheet, StatusBar, Text, View, Platform, Modal, ImageBackground } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import * as Animatable from 'react-native-animatable';
 import Systems from "./components/Systems";
 import LevelOne from './components/Levels/level-1';
 import LevelTwo from './components/Levels/level-2';
 import LevelThree from './components/Levels/level-3';
+import LevelFour from './components/Levels/level-4';
 import GameOver from './components/GameOver';
 import NextLevel from './components/NextLevel';
 import EStyleSheet from "react-native-extended-stylesheet";
 // import MainMenu from "./components/Menus/MainMenu";
 import Title from './components/Menus/Title';
+import LevelTitle from './components/Levels/level-title';
 const STARTINGLIVES = 5
 const STARTINGTRAMPOLINES = 5
-const BOXREMOVELIMIT = 10
+const BOXREMOVELIMIT = 1
 // const defaultTheme = {
 //   $bouncyBoxMenuMaxWidth: 500,
 //   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
@@ -26,7 +28,7 @@ const defaultTheme = {
   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
   $bouncyBoxMenuBackgroundColor: "#fffddd",
   $bouncyBoxMenuPrimaryColor: "#66f6cb",
-  $bouncyBoxMenuSecondaryColor: "black"//"#25D9D9"
+  $bouncyBoxMenuSecondaryColor: "#0bb482"//"#25D9D9"
 };
 Animatable.initializeRegistryWithDefinitions({
   fadeInOut: {
@@ -50,10 +52,10 @@ export default class App extends PureComponent {
     removedBoxes: 0,
     trampolines: STARTINGTRAMPOLINES,
     lives: STARTINGLIVES,
-    gameIsRunning: false,
+    gameIsRunning: true,
     gameOver: false,
     levelBeat: false,
-    currentLevel: 'level-1',
+    currentLevel: 'level-title',
     titleVisible: true,
     showTitle: true,
     showAddScoreAnimation: false,
@@ -82,11 +84,15 @@ export default class App extends PureComponent {
     console.log("running game")
     this.setState({
       gameIsRunning: true,
-      showTitle: false
-    })
+      showTitle: false,
+      currentLevel: 'level-1'
+    }, this.restart)
   }
   onPlayGame = () => {
-    console.log("Title no longer visisble");
+    // this.refs.engine.swap(LevelOne());
+    // setTimeout(() => {
+    //   this.resetState('level-1');
+    // }, 1000);
     this.setState({
       titleVisible: false,
       // showTitle: false
@@ -112,11 +118,24 @@ export default class App extends PureComponent {
       // this.resetState('level-3')
       break;
       case 'level-3':
+      this.refs.engine.swap(LevelFour());
+      setTimeout(() => {
+        this.resetState('level-4');
+      }, 1000);
+      // this.resetState('level-1')
+      break;      
+      case 'level-4':
       this.refs.engine.swap(LevelOne());
       setTimeout(() => {
         this.resetState('level-1');
       }, 1000);
       // this.resetState('level-1')
+      break;
+      default:
+      this.refs.engine.swap(LevelOne());
+      setTimeout(() => {
+        this.resetState('level-1');
+      }, 1000);
       break;
     }
     
@@ -147,6 +166,8 @@ export default class App extends PureComponent {
         return LevelTwo()
       case 'level-3':
         return LevelThree()
+        case 'level-4':
+        return LevelFour()
     }
   }
   restart = () => {
@@ -166,11 +187,10 @@ export default class App extends PureComponent {
 
   };
   quit = () => {
-    this.setState({
-      gameIsRunning: false,
-      gameOver: false,
-    });
-
+      this.setState({
+        gameIsRunning: false,
+        gameOver: false,
+      });
     // if (this.props.onClose) this.props.onClose();
   };
   gameOver = () => {
@@ -254,6 +274,7 @@ export default class App extends PureComponent {
     })
   }
   handleEvent = ev => {
+    if(this.state.showTitle) return;
     switch (ev.type) {
       case "increase-trampolines":
         this.increaseTrampolines();
@@ -279,15 +300,23 @@ export default class App extends PureComponent {
       case "remove-box":
         this.removeBox();
         break;
+      case "start-game":
+        this.startGame();
+        break;
     }
   };
   quit = () => {
+    this.refs.engine.swap(LevelOne());
+    setTimeout(() => {
+      this.resetState('level-1');
+    }, 1000);
     this.setState({
       gameIsRunning: false,
       gameOver: false,
       levelBeat: false,
       titleVisible: true,
       showTitle: true,
+      currentLevel: 'level-title'
     })
   }
   render() {
@@ -303,12 +332,14 @@ export default class App extends PureComponent {
         running={gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
-        entities={LevelThree()}> {/*Returns Object of entities*/}
+        entities={LevelTitle()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
         {/* <View onLayout={this.onLayout.bind(this)} style={scoreContainer}> */}
+
         {!this.state.showTitle && (
           <View style={scoreContainer}>
           <Text style={scoreFont}>Score: {score} / {BOXREMOVELIMIT} </Text>
+          
           {this.state.showAddScoreAnimation &&
           <Animatable.Text 
             useNativeDriver
@@ -319,6 +350,7 @@ export default class App extends PureComponent {
           {/* {scoreArray.map((score) => {
             return score
           })} */}
+
           <Text style={scoreFont}>Lives: {lives}</Text>
           {this.state.showLoseLifeAnimation &&
           <Animatable.Text 
@@ -341,6 +373,7 @@ export default class App extends PureComponent {
           {/* <Text>Removed: {removedBoxes}</Text> */}
         </View>
         )}
+        
         {this.state.showTitle &&
         <Title startGame={this.startGame} titleVisible={this.state.titleVisible} onPlayGame={this.onPlayGame}/>
       }

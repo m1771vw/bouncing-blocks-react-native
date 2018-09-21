@@ -10,8 +10,6 @@ const updatePhysicsEngine = (entities,time) => {
 
 const removeEntitiesThatHaveFallenTooFar = (entities, dispatch) => {
     let world = entities['physics'].world;
-    // console.log('InitialBox: ', entities['initialBox'])
-    // console.log(Object.keys(entities))
 	Object.keys(entities).filter(
         key => {
             if(key.includes('box')){
@@ -37,10 +35,6 @@ const removeEntitiesThatHaveFallenTooFar = (entities, dispatch) => {
 
 export default (entities, { time, dispatch }) => {
 	removeEntitiesThatHaveFallenTooFar(entities, dispatch);
-	// checkIfMarioHasFallenOff(entities, dispatch);
-	// updatePlatformCollisionFilters(entities);
 	updatePhysicsEngine(entities, time);
-
-
 	return entities;
 };

@@ -69,10 +69,10 @@ const checkTrampolineHitBoxes = (trampolineKey, boxes, entities, dispatch) => {
         let bottomCollisions = Matter.Query.ray([trampoline.body, box.body], bottomStart, bottomEnd);
         if(bottomCollisions.length) {
             Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
-            console.log('bottom collision detected')
-            console.log(trampoline)
+            // console.log('bottom collision detected')
+            // console.log(trampoline)
             if(!trampoline.specialTrampoline) {
-                console.log('Bottom collision:',trampoline.health)
+                // console.log('Bottom collision:',trampoline.health)
                 trampoline.health -= 1
                 if(trampoline.health === 2) trampoline.color = '#7e7e7e'
                 else if (trampoline.health === 1) trampoline.color = '#d3d3d3'
@@ -88,9 +88,9 @@ const checkTrampolineHitBoxes = (trampolineKey, boxes, entities, dispatch) => {
         let topCollisions = Matter.Query.ray([trampoline.body, box.body], topStart, topEnd);
         if(topCollisions.length) {
             Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
-            console.log('top collision detected')
+            // console.log('top collision detected')
             if(!trampoline.specialTrampoline) {
-                console.log(trampoline.health)
+                // console.log(trampoline.health)
                 trampoline.health -= 1
                 if(trampoline.health === 2) trampoline.color = '#7e7e7e'
                 else if (trampoline.health === 1) trampoline.color = '#d3d3d3'
@@ -106,7 +106,7 @@ const checkTrampolineHitBoxes = (trampolineKey, boxes, entities, dispatch) => {
         if (distance(trampoline.body.position, box.body.position) < 30) {
             Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
             if(!trampoline.specialTrampoline) {
-                console.log('middle collision: ',trampoline.health)
+                // console.log('middle collision: ',trampoline.health)
                 trampoline.health -= 1
                 if(trampoline.health === 2) trampoline.color = '#7e7e7e'
                 else if (trampoline.health === 1) trampoline.color = '#d3d3d3'
