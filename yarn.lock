@@ -5508,6 +5508,10 @@ react-native-extended-stylesheet@^0.9.0:
     css-mediaquery "^0.1.2"
     object-resolve-path "^1.1.0"
 
+react-native-fontawesome@^5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-fontawesome/-/react-native-fontawesome-5.7.0.tgz#7bfe57c21c6522d05eaf206474903c3f299bfc0d"
+
 react-native-game-engine@^0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/react-native-game-engine/-/react-native-game-engine-0.10.1.tgz#3c8592ad6fbf405fdb8716f7212eae5bb457bdd9"

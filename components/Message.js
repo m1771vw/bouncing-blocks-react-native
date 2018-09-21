@@ -33,7 +33,10 @@ export default class Message extends PureComponent {
 
 const styles = StyleSheet.create({
 	message: {
-		marginTop: 4
+		marginTop: 4,
+		borderWidth: 1,
+		borderColor: 'red'
+		
 	},
 	image: {
 		alignSelf: "center"
@@ -48,6 +51,6 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		// fontFamily: "$bouncyBoxMenuFont",
-		fontSize: 18
+		fontSize: 30
 	}
 });

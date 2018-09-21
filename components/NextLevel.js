@@ -6,7 +6,7 @@ import Message from "./Message";
 export default class GameOver extends PureComponent {
 	render() {
 		return (
-			<Popup onPlayAgain={this.props.onPlayAgain} nextLevel={this.props.nextLevel} onQuit={this.props.quit}>
+			<Popup onPlayAgain={this.props.onPlayAgain} nextLevel={this.props.nextLevel} onQuit={this.props.onQuit}>
 				<Message>
 					Level Complete!
 				</Message>

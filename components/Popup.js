@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View, Dimensions } from "react-native";
 import * as Animatable from "react-native-animatable";
 import EStyleSheet from "react-native-extended-stylesheet";
 import Button from "./Button";
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 export default class Popup extends PureComponent {
 	constructor(props) {
@@ -39,18 +40,24 @@ export default class Popup extends PureComponent {
 					/* {this.props.children}
 				</ScrollView> */ }
 				<View>{this.props.children}</View>
+				<View style={styles.buttonContainer}> 
+
 				<Button
 					onPress={this.props.onPlayAgain}
 					style={styles.playGameButton}
 				>
-					Play Again
+					{/* Play Again */}
+					<FontAwesome style={{color:'white'}}>{Icons.repeat}</FontAwesome>
 				</Button>
 				<Button onPress={this.props.nextLevel} style={styles.cancelButton}>
-					Next Level
+					{/* Next Level */}
+					<FontAwesome style={{color:'white'}}>{Icons.angleDoubleRight}</FontAwesome>
 				</Button>
 				<Button onPress={this.props.onQuit} style={styles.cancelButton}>
-					Quit
+					{/* Quit */}
+					<FontAwesome style={{color:'white'}}>{Icons.times}</FontAwesome>
 				</Button>
+				</View>
 			</Animatable.View>
 		);
 	}
@@ -62,6 +69,10 @@ const styles = StyleSheet.create({
 		padding: 0,
 		flex: 1,
 		backgroundColor: 'transparent'
+	},
+	buttonContainer: {
+		flexDirection: 'row',
+		maxWidth: 400
 	},
 	scrollViewContainer: {
 		width: 200,

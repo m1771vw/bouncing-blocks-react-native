@@ -20,7 +20,7 @@ const world = engine.world;                                     // Required for 
 const initialBox = Matter.Bodies.rectangle(boxSize, 100, boxSize, boxSize, 
   { frictionAir: 0.01, friction: 0.00, restitution: 1,	collisionFilter: 
   { category: collisionCategories.box, mask: collisionCategories.wall }});
-const initialTrampoline = Matter.Bodies.rectangle(width * 0.15, height - (boxSize) - 50, 100, 10, { isStatic: true });
+const initialTrampoline = Matter.Bodies.rectangle(width * 0.15, height - (boxSize) - 50, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline } });
 const floor = Matter.Bodies.rectangle(width / 2, height, width, boxSize, { isStatic: true,
     collisionFilter: { category: collisionCategories.wall }});             // Entities will return an object 
 const roof = Matter.Bodies.rectangle(width / 2, 0, width, boxSize, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
@@ -42,7 +42,7 @@ export default LevelTwo => {
         rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
         floor: { body: floor, size: [width, boxSize], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
         // 'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
-        initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                               
+        initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', specialTrampoline: true, trampoline: true, renderer: Trampoline}                                                               
                                                          
     }
 }

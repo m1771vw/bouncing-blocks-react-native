@@ -11,9 +11,9 @@ import NextLevel from './components/NextLevel';
 import EStyleSheet from "react-native-extended-stylesheet";
 // import MainMenu from "./components/Menus/MainMenu";
 import Title from './components/Menus/Title';
-const STARTINGLIVES = 1
+const STARTINGLIVES = 5
 const STARTINGTRAMPOLINES = 14
-const BOXREMOVELIMIT = 2
+const BOXREMOVELIMIT = 1
 // const defaultTheme = {
 //   $bouncyBoxMenuMaxWidth: 500,
 //   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
@@ -31,7 +31,7 @@ const defaultTheme = {
 Animatable.initializeRegistryWithDefinitions({
   fadeInOut: {
     0: { opacity: 0 },
-    0.5: { opacity: 1 },
+    0.25: { opacity: 1 },
     1: { opacity: 0 }
   }
 })
@@ -73,6 +73,9 @@ export default class App extends PureComponent {
 
   async componentWillMount() {
     await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
+    await Expo.Font.loadAsync({
+        'FontAwesome': require('./components/assets/fontawesome-webfont.ttf'),
+      });
   }
 
   startGame = () => {
@@ -299,7 +302,7 @@ export default class App extends PureComponent {
         running={gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
-        entities={LevelTwo()}> {/*Returns Object of entities*/}
+        entities={LevelOne()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
         {/* <View onLayout={this.onLayout.bind(this)} style={scoreContainer}> */}
         {!this.state.showTitle && (
@@ -395,8 +398,8 @@ const styles = StyleSheet.create({
   endMessage: {
     alignItems: 'center',
     // justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: 'grey'
+    // borderWidth: 2,
+    // borderColor: 'grey'
   }
 });
 

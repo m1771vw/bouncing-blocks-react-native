@@ -44,6 +44,6 @@ export default LevelThree => {
         rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], borderColor: '#dd0d0d', color: "#f44242", renderer: Box }, 
         floor: { body: floor, size: [width, boxSize], borderColor: '#dd0d0d', color: "#f44242", renderer: Box }, 
         // 'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
-        initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', trampoline: true, renderer: Trampoline}                                                                                                              
+        initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', specialTrampoline: true, trampoline: true, renderer: Trampoline}                                                                                                              
     }
 }
