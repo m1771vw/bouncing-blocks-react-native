@@ -14,7 +14,7 @@ const CreateTrampoline = (entities, { touches, screen, dispatch }) => {
     let trampolineHeight = 10;
     let numOfTrampolines = Object.keys(entities).filter(k => entities[k].trampoline)
     // console.log('Num of Trampolines: ', numOfTrampolines.length)
-    if (numOfTrampolines.length <= 5) {
+    if (numOfTrampolines.length <= 6) {
         touches.filter(t => t.type === "press").forEach(t => { // Filte for 'press' types. For each type do the function.
         // console.log("Creating trampoline at: x", t.event.pageX,t.event.pageY)
             let body = Matter.Bodies.rectangle( // Body = rectangle(x, y, width, height, [options])

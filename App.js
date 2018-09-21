@@ -26,7 +26,7 @@ const defaultTheme = {
   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
   $bouncyBoxMenuBackgroundColor: "#fffddd",
   $bouncyBoxMenuPrimaryColor: "#66f6cb",
-  $bouncyBoxMenuSecondaryColor: "#9ef9de"//"#25D9D9"
+  $bouncyBoxMenuSecondaryColor: "black"//"#25D9D9"
 };
 Animatable.initializeRegistryWithDefinitions({
   fadeInOut: {
@@ -135,7 +135,8 @@ export default class App extends PureComponent {
       levelBeat: false, 
       trampolines: STARTINGTRAMPOLINES, 
       lives: STARTINGLIVES,
-      removedBoxes: 0
+      removedBoxes: 0,
+      score: 0
       })
   }
   getLevelFromState = () => {
@@ -217,11 +218,11 @@ export default class App extends PureComponent {
     }, this.checkIfGameOver)
   }
   checkIfGameOver = () => {
-    this.state.lives !== 0 && this.state.removedBoxes === BOXREMOVELIMIT
+    this.state.lives !== 0 && this.state.score === BOXREMOVELIMIT
     ? this.setState({
       levelBeat: true,
       gameIsRunning: false
-    }): this.state.lives <= 0 || this.state.removedBoxes === BOXREMOVELIMIT
+    }): this.state.lives <= 0
     ? this.setState({
       gameOver: true,
       gameIsRunning: false
@@ -302,12 +303,12 @@ export default class App extends PureComponent {
         running={gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
-        entities={LevelTwo()}> {/*Returns Object of entities*/}
+        entities={LevelThree()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
         {/* <View onLayout={this.onLayout.bind(this)} style={scoreContainer}> */}
         {!this.state.showTitle && (
           <View style={scoreContainer}>
-          <Text style={scoreFont}>Score: {score}</Text>
+          <Text style={scoreFont}>Score: {score} / {BOXREMOVELIMIT} </Text>
           {this.state.showAddScoreAnimation &&
           <Animatable.Text 
             useNativeDriver
