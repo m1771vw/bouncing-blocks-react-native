@@ -8,8 +8,7 @@ export default class GameOver extends PureComponent {
 		return (
 			<Popup onPlayAgain={this.props.onPlayAgain} nextLevel={this.props.nextLevel} onQuit={this.props.onQuit}>
 				<Message>
-					Too many blocks died!
-					Better luck next time!
+					Game Over!
 				</Message>
 			</Popup>
 		);

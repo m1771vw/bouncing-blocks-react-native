@@ -12,8 +12,8 @@ import EStyleSheet from "react-native-extended-stylesheet";
 // import MainMenu from "./components/Menus/MainMenu";
 import Title from './components/Menus/Title';
 const STARTINGLIVES = 5
-const STARTINGTRAMPOLINES = 14
-const BOXREMOVELIMIT = 1
+const STARTINGTRAMPOLINES = 5
+const BOXREMOVELIMIT = 10
 // const defaultTheme = {
 //   $bouncyBoxMenuMaxWidth: 500,
 //   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
@@ -302,7 +302,7 @@ export default class App extends PureComponent {
         running={gameIsRunning}
         style={styles.container} 
         systems={Systems} // Array of Systems
-        entities={LevelOne()}> {/*Returns Object of entities*/}
+        entities={LevelTwo()}> {/*Returns Object of entities*/}
         <StatusBar hidden={true} />
         {/* <View onLayout={this.onLayout.bind(this)} style={scoreContainer}> */}
         {!this.state.showTitle && (

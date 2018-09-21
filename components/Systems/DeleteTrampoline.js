@@ -3,6 +3,7 @@ import Matter from "matter-js";
 import { distance } from '../Utilities'
 
 
+
 const DeleteTrampoline = (entities, dispatch) => {
     // console.log('type of dispatch', typeof dispatch)
 	let entity = entities;
@@ -69,44 +70,51 @@ const checkTrampolineHitBoxes = (trampolineKey, boxes, entities, dispatch) => {
         if(bottomCollisions.length) {
             Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
             console.log('bottom collision detected')
+            console.log(trampoline)
             if(!trampoline.specialTrampoline) {
-                Matter.World.remove(entities.physics.world, trampoline.body);
-                delete entities[trampolineKey];
-                dispatch({type: 'increase-trampolines'})
+                console.log('Bottom collision:',trampoline.health)
+                trampoline.health -= 1
+                if(trampoline.health === 2) trampoline.color = '#7e7e7e'
+                else if (trampoline.health === 1) trampoline.color = '#d3d3d3'
+                else {
+                    Matter.World.remove(entities.physics.world, trampoline.body);
+                    delete entities[trampolineKey];
+                    dispatch({type: 'increase-trampolines'})
+                }
                 break;
             }
         }
+
         let topCollisions = Matter.Query.ray([trampoline.body, box.body], topStart, topEnd);
         if(topCollisions.length) {
             Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
             console.log('top collision detected')
             if(!trampoline.specialTrampoline) {
-                Matter.World.remove(entities.physics.world, trampoline.body);
-                delete entities[trampolineKey];
-                dispatch({type: 'increase-trampolines'})
+                console.log(trampoline.health)
+                trampoline.health -= 1
+                if(trampoline.health === 2) trampoline.color = '#7e7e7e'
+                else if (trampoline.health === 1) trampoline.color = '#d3d3d3'
+                else {
+                    Matter.World.remove(entities.physics.world, trampoline.body);
+                    delete entities[trampolineKey];
+                    dispatch({type: 'increase-trampolines'})
+                }
                 break;
             }
         }
-        // let middleCollisions = Matter.Query.ray([trampoline.body, box.body], middleStart, middleEnd);
-        // if(middleCollisions.length) {
-        //     console.log('detecting middle collisions');
-        //     Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
-        //     if(!trampoline.specialTrampoline) {
-        //         Matter.World.remove(entities.physics.world, trampoline.body);
-        //         delete entities[trampolineKey];
-        //         dispatch({type: 'increase-trampolines'})
-        //         break;
-        //     }
-        // }
-     
-        // return (b1.collisionFilter.category & b2.collisionFilter.mask) !== 0 &&
-        // (b1.collisionFilter.mask & b2.collisionFilter.category) !== 0;
+   
         if (distance(trampoline.body.position, box.body.position) < 30) {
             Matter.Body.setVelocity(box.body, {x:2, y:-9.8})
             if(!trampoline.specialTrampoline) {
-                Matter.World.remove(entities.physics.world, trampoline.body);
-                delete entities[trampolineKey];
-                dispatch({type: 'increase-trampolines'})
+                console.log('middle collision: ',trampoline.health)
+                trampoline.health -= 1
+                if(trampoline.health === 2) trampoline.color = '#7e7e7e'
+                else if (trampoline.health === 1) trampoline.color = '#d3d3d3'
+                else {
+                    Matter.World.remove(entities.physics.world, trampoline.body);
+                    delete entities[trampolineKey];
+                    dispatch({type: 'increase-trampolines'})
+                }
                 break;
             }
         }

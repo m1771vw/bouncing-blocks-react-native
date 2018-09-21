@@ -20,14 +20,15 @@ const world = engine.world;                                     // Required for 
 const initialBox = Matter.Bodies.rectangle(boxSize, 100, boxSize, boxSize, 
   { frictionAir: 0.01, friction: 0.00, restitution: 1,	collisionFilter: 
   { category: collisionCategories.box, mask: collisionCategories.wall }});
-const initialTrampoline = Matter.Bodies.rectangle(width * 0.15, height - (boxSize) - 50, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline } });
+const specialTrampoline = Matter.Bodies.rectangle(width * 0.15, height - (boxSize) - 50, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline }  });
+const specialTrampoline2 = Matter.Bodies.rectangle(width * 0.65, height - (boxSize) - 50, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline }  });
 const floor = Matter.Bodies.rectangle(width / 2, height, width, boxSize, { isStatic: true,
     collisionFilter: { category: collisionCategories.wall }});             // Entities will return an object 
 const roof = Matter.Bodies.rectangle(width / 2, 0, width, boxSize, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 const leftWall = Matter.Bodies.rectangle(0, height / 2, width * 0.05, height, { isStatic: true, collisionFilter: { category: collisionCategories.wall }});
 const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.10, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 const rightWallLower = Matter.Bodies.rectangle(width, height, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
-const middleWall = Matter.Bodies.rectangle(width / 2, height * 0.55, width * 0.05, height * 0.25, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
+const middleWall = Matter.Bodies.rectangle(width / 2, height * 0.55, width * 0.05, height * 0.25 - 25, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 
 
 Matter.World.add(world, [initialBox, leftWall, middleWall, rightWallUpper, rightWallLower, initialTrampoline, roof]); // Add to the world
@@ -37,12 +38,13 @@ export default LevelTwo => {
         physics: { engine: engine, world: world },
         roof: { body: roof, size: [width, boxSize], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
         leftWall: { body: leftWall, size: [width * 0.05, height], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
-        middleWall: { body: middleWall, size: [width * 0.05, height * 0.25], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
+        middleWall: { body: middleWall, size: [width * 0.05, height * 0.25 - - 25], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
         rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height/2], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
         rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
         floor: { body: floor, size: [width, boxSize], borderColor: '#f4f142', color: "#f4f142", renderer: Box }, 
         // 'box-0': { body: initialBox, size: [boxSize, boxSize], color: '#4441f4', box: true, renderer: Box},    
-        initialTrampoline: { body: initialTrampoline, size: [100, 10], color: 'black', specialTrampoline: true, trampoline: true, renderer: Trampoline}                                                               
+        specialTrampoline: { body: specialTrampoline, size: [100, 10], specialTrampoline: true, trampoline: true, color: 'black', renderer: Trampoline},                                                               
+        specialTrampoline2: { body: specialTrampoline2, size: [100, 10], specialTrampoline: true, trampoline: true, color: 'black', renderer: Trampoline}                                                                                                                          
                                                          
     }
 }

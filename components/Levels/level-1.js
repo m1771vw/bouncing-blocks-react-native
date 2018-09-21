@@ -30,7 +30,7 @@ const floor = Matter.Bodies.rectangle(width / 2, height, width, boxSize, { isSta
     collisionFilter: { category: collisionCategories.wall }});             // Entities will return an object 
 const roof = Matter.Bodies.rectangle(width / 2, 0, width, boxSize, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 const leftWall = Matter.Bodies.rectangle(0, height / 2, width * 0.05, height, { isStatic: true, collisionFilter: { category: collisionCategories.wall }});
-const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.10, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
+const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.10, width * 0.05, height * 0.40, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 const rightWallLower = Matter.Bodies.rectangle(width, height, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 // - Matter.World.add(world, [body, floor]);
 // Matter.Resolver._restingThresh = 0.01
@@ -43,7 +43,7 @@ export default LevelOne => {
         physics: { engine: engine, world: world },
         roof: { body: roof, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         leftWall: { body: leftWall, size: [width * 0.05, height], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
-        rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height/2], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
+        rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height* 0.40], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         rightWallLower: { body: rightWallLower, size: [width * 0.05, height/2], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         floor: { body: floor, size: [width, boxSize], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
                                                                             // Each property has a value that has renderer and renderer's props

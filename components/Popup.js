@@ -16,7 +16,7 @@ export default class Popup extends PureComponent {
 
 			<Animatable.View
 			useNativeDriver
-			// style={styles.container}
+			style={styles.container}
 			animation="bounceInUp"
 		>
 				{/* /* <ScrollView
@@ -49,7 +49,7 @@ export default class Popup extends PureComponent {
 					{/* Play Again */}
 					<FontAwesome style={{color:'white'}}>{Icons.repeat}</FontAwesome>
 				</Button>
-				<Button onPress={this.props.nextLevel} style={styles.cancelButton}>
+				<Button onPress={this.props.nextLevel} style={styles.nextButton}>
 					{/* Next Level */}
 					<FontAwesome style={{color:'white'}}>{Icons.angleDoubleRight}</FontAwesome>
 				</Button>
@@ -67,12 +67,14 @@ const styles = StyleSheet.create({
 	container: {
 		margin: 0,
 		padding: 0,
-		flex: 1,
-		backgroundColor: 'transparent'
+		// flex: 1,
+		backgroundColor: 'white'
 	},
 	buttonContainer: {
 		flexDirection: 'row',
-		maxWidth: 400
+		alignSelf: 'center',
+		justifyContent: 'center',
+		maxWidth: 200
 	},
 	scrollViewContainer: {
 		width: 200,
@@ -80,14 +82,20 @@ const styles = StyleSheet.create({
 		justifyContent: "center"
 	},
 	playGameButton: {
-		maxWidth: 200,
+		maxWidth: 50,
 		alignSelf: "center",
-		marginBottom: 0
+		backgroundColor: '#41d0f4'
+		// marginBottom: 0
 	},
 	cancelButton: {
-		maxWidth: 200,
+		maxWidth: 50,
 		alignSelf: "center",
-		marginBottom: 10,
+		// marginBottom: 0,
 		backgroundColor: "#ff4136"
+	},
+	nextButton: {
+		maxWidth: 50,
+		alignSelf: 'center',
+		backgroundColor: '#86E9BE'
 	}
 });
