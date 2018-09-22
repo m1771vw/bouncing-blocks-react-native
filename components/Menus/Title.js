@@ -33,7 +33,8 @@ export default class Title extends PureComponent {
 
         </ImageBackground>
         <Text style={styles.titleH1}>Bouncy Blocks</Text>
-        {/* <Text style={styles.titleH2}></Text> */}
+        <Text style={styles.titleH2}>Press on the screen to make trampolines</Text>
+        <Text style={styles.titleH2}>Bounce blocks to the other side and don't let them fall!</Text>
         <Button style={styles.buttonTitle} onPress={this.props.onPlayGame}>Play Game</Button>
         {/* <Animatable.View
             animation='fadeOut'
@@ -71,11 +72,11 @@ const styles = EStyleSheet.create({
     marginTop: 140
   },
   titleH2: {
-    fontSize: 40,
+    fontSize: 16,
     alignSelf: 'center',
-    color: "$bouncyBoxMenuPrimaryColor",
-    textShadowColor: "$bouncyBoxMenuSecondaryColor",
-    textShadowOffset: { width: -1, height: 2 },
+    color: "black",
+    // textShadowColor: "$bouncyBoxMenuSecondaryColor",
+    // textShadowOffset: { width: -1, height: 2 },
     textShadowRadius: 0,
     fontFamily: "$bouncyBoxMenuFont"
   },

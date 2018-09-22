@@ -46,12 +46,13 @@ const createBoxes = (entities, events) => {
 	const boxSize = Math.trunc(Math.max(width, height) * 0.075);
 	let body = Matter.Bodies.rectangle( // Body = rectangle(x, y, width, height, [options])
 		100,
-		100,
+		50,
 		boxSize,
 		boxSize,
 		{ frictionAir: 0.01, // Faster it moves in space. Regular friction means how much it slides
 		friction: 0.0, 
 		restitution: 1,
+		// chamfer: { radius: 1 },
 		collisionFilter: {
 			category: collisionCategories.box,
 			mask: collisionCategories.wall| collisionCategories.trampoline}} 
@@ -63,7 +64,7 @@ const createBoxes = (entities, events) => {
 			size: [boxSize, boxSize],
 			color: boxColors[randomNumber()],
 			borderColor: 'grey',
-			borderWidth: 0.5,
+			borderWidth: 2,
 			// color: "#4286f4",
 			renderer: Box,
 			box: true

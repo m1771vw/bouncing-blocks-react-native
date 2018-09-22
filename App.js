@@ -306,7 +306,7 @@ export default class App extends PureComponent {
     }
   };
   quit = () => {
-    this.refs.engine.swap(LevelOne());
+    this.refs.engine.swap(LevelTitle());
     setTimeout(() => {
       this.resetState('level-1');
     }, 1000);
@@ -406,20 +406,21 @@ const styles = StyleSheet.create({
     margin: 25
   },
   scoreFont: {
-    fontSize: 18,
+    fontSize: 24,
     
   },
   addScore: {
     fontSize: 30,
     position: 'absolute',
-    marginLeft: 80,
+    marginLeft: 75,
+    marginTop: 30,
     color:'green'
   },
   loseLife: {
     fontSize: 30,
     position: 'absolute',
-    marginLeft: 320,
-    marginBottom: 40,
+    marginLeft: 290,
+    marginTop: 30,
     color: 'red'
   },
   noTrampoline: {
