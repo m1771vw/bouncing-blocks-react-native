@@ -27,7 +27,7 @@ export default class Title extends PureComponent {
           <ImageBackground style={{opacity: 0.4, flex: 1, position: 'absolute', width: '100%', height: '100%', justifyContent: 'center'}}
                            source={require('../assets/img/green_gradient_reversed.png')}>
           </ImageBackground>
-            <Text style={styles.titleH1}>Bouncy Blocks</Text>
+            <Text style={styles.titleH1}>Bouncing Blocks</Text>
             <Text style={styles.titleH2}>Press on the screen to make trampolines</Text>
             <Text style={styles.titleH2}>Bounce blocks to the other side and don't let them fall!</Text>
             <Button style={styles.buttonTitle} onPress={this.props.onPlayGame}>Play Game</Button>
