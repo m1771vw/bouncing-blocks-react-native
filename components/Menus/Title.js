@@ -17,7 +17,7 @@ export default class Title extends PureComponent {
     }
 
   render() {
-      console.log('trying to render title')
+    //   console.log('trying to render title')
     return (
 
         <Animatable.View

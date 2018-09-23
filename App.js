@@ -100,7 +100,7 @@ export default class App extends PureComponent {
   }
 
   nextLevel = () => {
-    console.log("Trying to go to next level")
+    // console.log("Trying to go to next level")
     this.turnOffText();
     switch(this.state.currentLevel) {
       case 'level-1':
@@ -199,7 +199,7 @@ export default class App extends PureComponent {
     })
   }
   increaseScore = () => {
-    console.log("Trying to increase score")
+    // console.log("Trying to increase score")
       this.setState({
         showAddScoreAnimation: false
       }, () => {this.setState({
