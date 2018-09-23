@@ -38,14 +38,6 @@ Animatable.initializeRegistryWithDefinitions({
   }
 })
 
-// const ScoreAnimation = props => {
-//   return (<Animatable.Text 
-//   useNativeDriver
-//   style={styles.addScore}
-//   animation={'fadeInOut'}
-//   onAnimationEnd={this.addScoreAnimationDisappear}
-// >+1</Animatable.Text>)
-// }
 export default class App extends PureComponent {
   state={
     score: 0,
@@ -61,18 +53,9 @@ export default class App extends PureComponent {
     showAddScoreAnimation: false,
     showLoseLifeAnimation: false,
     showNoTrampolineAnimation: false
-    // scoreAnimationArray: []
-    
+
   }
   
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.visible) {
-  //     this.setState({
-  //       gameIsRunning: true
-  //     });
-  //   }
-  // }
-
   async componentWillMount() {
     await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
     await Expo.Font.loadAsync({
@@ -89,18 +72,12 @@ export default class App extends PureComponent {
     }, this.restart)
   }
   onPlayGame = () => {
-    // this.refs.engine.swap(LevelOne());
-    // setTimeout(() => {
-    //   this.resetState('level-1');
-    // }, 1000);
     this.setState({
       titleVisible: false,
-      // showTitle: false
     })
   }
 
   nextLevel = () => {
-    // console.log("Trying to go to next level")
     this.turnOffText();
     switch(this.state.currentLevel) {
       case 'level-1':
@@ -108,28 +85,24 @@ export default class App extends PureComponent {
       setTimeout(() => {
         this.resetState('level-2');
       }, 1000);
-      // this.resetState('level-2')
         break;
       case 'level-2':
       this.refs.engine.swap(LevelThree());
       setTimeout(() => {
         this.resetState('level-3');
       }, 1000);
-      // this.resetState('level-3')
       break;
       case 'level-3':
       this.refs.engine.swap(LevelFour());
       setTimeout(() => {
         this.resetState('level-4');
       }, 1000);
-      // this.resetState('level-1')
       break;      
       case 'level-4':
       this.refs.engine.swap(LevelOne());
       setTimeout(() => {
         this.resetState('level-1');
       }, 1000);
-      // this.resetState('level-1')
       break;
       default:
       this.refs.engine.swap(LevelOne());
@@ -176,22 +149,12 @@ export default class App extends PureComponent {
     setTimeout(() => {
       this.resetState(this.state.currentLevel);
     }, 1000);
-    // this.setState({
-    //   gameIsRunning: true,
-    //   gameOver: false,
-    //   lives: STARTINGLIVES + 1,
-    //   trampolines: STARTINGTRAMPOLINES,
-    //   removedBoxes: 0,
-    //   currentLevel: 'level-1'
-    // }, () => {this.refs.engine.swap(LevelOne())});
-
   };
   quit = () => {
       this.setState({
         gameIsRunning: false,
         gameOver: false,
       });
-    // if (this.props.onClose) this.props.onClose();
   };
   gameOver = () => {
     this.setState({
@@ -199,7 +162,6 @@ export default class App extends PureComponent {
     })
   }
   increaseScore = () => {
-    // console.log("Trying to increase score")
       this.setState({
         showAddScoreAnimation: false
       }, () => {this.setState({
@@ -361,7 +323,7 @@ export default class App extends PureComponent {
               >No Trampolines Left!</Animatable.Text>}
         </View>
       )}
-      
+
       {this.state.showTitle &&
         <Title startGame={this.startGame} titleVisible={this.state.titleVisible} onPlayGame={this.onPlayGame}/>
       }

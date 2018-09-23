@@ -1,9 +1,6 @@
 import React, { PureComponent } from "react";
 import {
-  View,
-  Text,
   TouchableOpacity,
-  StyleSheet
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import EStyleSheet from 'react-native-extended-stylesheet';
