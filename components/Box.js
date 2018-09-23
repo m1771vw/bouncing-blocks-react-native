@@ -28,6 +28,7 @@ export default class Box extends Component {
             transform: [{ rotate: angle + "rad" }],
             backgroundColor: this.props.color || "#4441f4",
             borderWidth: 1,
+            borderRadius: 5,
             borderColor: this.props.borderColor || 'white'
           }}/>
     );
