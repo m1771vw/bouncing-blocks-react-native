@@ -22,7 +22,6 @@ const createBoxes = (entities) => {
 		{ frictionAir: 0.01, 
 		friction: 0.0, 
 		restitution: 1,
-
 		collisionFilter: {
 			category: collisionCategories.box,
 			mask: collisionCategories.wall| collisionCategories.trampoline}} 

@@ -12,10 +12,6 @@ const boxSize = Math.trunc(Math.max(width, height) * 0.075);
 const engine = Matter.Engine.create({ enableSleeping: false });  
 const world = engine.world;                                     
 
-
-const initialBox = Matter.Bodies.rectangle(boxSize, 100, boxSize, boxSize, 
-  { frictionAir: 0.01, friction: 0.00, restitution: 1,	collisionFilter: 
-  { category: collisionCategories.box, mask: collisionCategories.wall }});
 const specialTrampoline = Matter.Bodies.rectangle(width * 0.15, height - (boxSize) - 50, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline }  });
 const specialTrampoline2 = Matter.Bodies.rectangle(width * 0.65, height - (boxSize) - 50, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline }  });
 const floor = Matter.Bodies.rectangle(width / 2, height, width, boxSize, { isStatic: true,
@@ -25,7 +21,7 @@ const leftWall = Matter.Bodies.rectangle(0, height / 2, width * 0.05, height, { 
 const rightWallUpper = Matter.Bodies.rectangle(width, height * 0.10, width * 0.05, height * 0.40, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 const rightWallLower = Matter.Bodies.rectangle(width, height, width * 0.05, height/2, { isStatic: true, collisionFilter: { category: collisionCategories.wall } });
 
-Matter.World.add(world, [initialBox, leftWall, rightWallUpper, rightWallLower, specialTrampoline, roof]); 
+Matter.World.add(world, [leftWall, rightWallUpper, rightWallLower, specialTrampoline, roof]); 
 export default LevelOne => {
     return {
         physics: { engine: engine, world: world },

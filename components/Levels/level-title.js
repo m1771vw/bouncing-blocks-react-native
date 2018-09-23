@@ -17,9 +17,6 @@ const specialTrampoline = Matter.Bodies.rectangle(width * 0.15, (boxSize) + 65, 
 const specialTrampoline2 = Matter.Bodies.rectangle(width * 0.40, (boxSize) + 90, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline }  });
 const specialTrampoline3 = Matter.Bodies.rectangle(width * 0.65, (boxSize) + 90, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline }  });
 const specialTrampoline4 = Matter.Bodies.rectangle(width * 0.90, (boxSize) + 65, 100, 10, { isStatic: true, collisionFilter: { category: collisionCategories.trampoline }  });
-const initialBox = Matter.Bodies.rectangle(boxSize, 100, boxSize, boxSize, 
-  { frictionAir: 0.01, friction: 0.00, restitution: 1,	collisionFilter: 
-  { category: collisionCategories.box, mask: collisionCategories.wall }});
 
 export default LevelTitle => {
     return {
