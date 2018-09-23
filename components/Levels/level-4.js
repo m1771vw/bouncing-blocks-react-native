@@ -3,9 +3,7 @@ import { Dimensions } from "react-native";
 import Matter from "matter-js";
 import Box from '../Box';
 import Trampoline from '../Trampoline';
-import TrampolineCount from '../TrampolineCount';
 import { collisionCategories } from "../Utilities/constants";
-import Score from '../Score';
 import Background from '../Background'
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
