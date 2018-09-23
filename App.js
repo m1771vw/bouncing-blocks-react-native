@@ -322,72 +322,58 @@ export default class App extends PureComponent {
   render() {
     let {container, scoreFont, scoreContainer, endMessage, addScore} = styles
     let {gameIsRunning, score, lives, trampolines} = this.state
-    // console.log("TitleVisible in APp.js: " , this.state.titleVisible)
-    // let scoreArray = [<ScoreAnimation margin={90}/>, <ScoreAnimation margin={130}/>]
     return (
-
       <GameEngine 
         ref={'engine'}
         onEvent={this.handleEvent}
         running={gameIsRunning}
         style={styles.container} 
-        systems={Systems} // Array of Systems
-        entities={LevelTitle()}> {/*Returns Object of entities*/}
+        systems={Systems} 
+        entities={LevelTitle()}> 
+
         <StatusBar hidden={true} />
-        {/* <View onLayout={this.onLayout.bind(this)} style={scoreContainer}> */}
 
         {!this.state.showTitle && (
           <View style={scoreContainer}>
-          <Text style={scoreFont}>Score: {score} / {BOXREMOVELIMIT} </Text>
-          
+            <Text style={scoreFont}>Score: {score} / {BOXREMOVELIMIT} </Text>
           {this.state.showAddScoreAnimation &&
-          <Animatable.Text 
-            useNativeDriver
-            style={styles.addScore}
-            animation={'fadeInOut'}
-            onAnimationEnd={this.addScoreAnimationDisappear}
-      >+1</Animatable.Text>}
-        
-
+              <Animatable.Text 
+                useNativeDriver
+                style={styles.addScore}
+                animation={'fadeInOut'}
+                onAnimationEnd={this.addScoreAnimationDisappear}
+                >+1</Animatable.Text>}
           <Text style={scoreFont}>Lives: {lives}</Text>
           {this.state.showLoseLifeAnimation &&
-          <Animatable.Text 
-            useNativeDriver
-            style={styles.loseLife}
-            animation={'fadeInOut'}
-            onAnimationEnd={this.showLoseLifeAnimationDisappear}
-      >-1</Animatable.Text>}
-
-          {/* <Text>State: {gameIsRunning && 'Running'}</Text> */}
-          {/* <Text>Level Beat: {(!levelBeat) && 'Not Beaten'}</Text> */}
+            <Animatable.Text 
+              useNativeDriver
+              style={styles.loseLife}
+              animation={'fadeInOut'}
+              onAnimationEnd={this.showLoseLifeAnimationDisappear}
+              >-1</Animatable.Text>}
           <Text style={scoreFont}>Trampolines Left: {trampolines}</Text>
           {this.state.showNoTrampolineAnimation &&
-          <Animatable.Text 
-            useNativeDriver
-            style={styles.noTrampoline}
-            animation={'fadeInOut'}
-            onAnimationEnd={this.showNoTrampolineAnimationDisappear}
-            >No Trampolines Left!</Animatable.Text>}
+            <Animatable.Text 
+              useNativeDriver
+              style={styles.noTrampoline}
+              animation={'fadeInOut'}
+              onAnimationEnd={this.showNoTrampolineAnimationDisappear}
+              >No Trampolines Left!</Animatable.Text>}
         </View>
-        )}
-        
-        {this.state.showTitle &&
+      )}
+      
+      {this.state.showTitle &&
         <Title startGame={this.startGame} titleVisible={this.state.titleVisible} onPlayGame={this.onPlayGame}/>
       }
-        <View style={endMessage}>
+      <View style={endMessage}>
         {this.state.gameOver && ( 
             <GameOver onPlayAgain={this.restart} nextLevel={this.nextLevel}  onQuit={this.quit} />
           )}
-          {
-            this.state.levelBeat && (
+          {this.state.levelBeat && (
               <NextLevel onPlayAgain={this.restart} nextLevel={this.nextLevel}  onQuit={this.quit}/>
-            )
-          }
+          )}
         </View>
       </GameEngine>
-
-
-      
     );
   }
 }
@@ -432,28 +418,8 @@ const styles = StyleSheet.create({
 
   endMessage: {
     alignItems: 'center',
-    // justifyContent: 'center',
-    // borderWidth: 2,
-    // borderColor: 'grey'
   }
 });
 
 AppRegistry.registerComponent("App", () => App);
 
-
-/** from <GameEngine/> Will cycle through each entity and apply system?
- * Takes in array of systems
- * arr.reduce(callback[, initialValue])
- * const reducer = (accumulator, currentValue) => accumulator + currentValue;
- *
- *     let newState = this.props.systems.reduce(
-      (state, sys) => sys(state, args), this.state.entities
-    );
- */
-
- /**
-  * From MDN:
-  * // 5 + 1 + 2 + 3 + 4
-    console.log(array1.reduce(reducer, 5));
-    // expected output: 15
-  */
