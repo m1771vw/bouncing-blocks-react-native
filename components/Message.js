@@ -34,23 +34,24 @@ export default class Message extends PureComponent {
 const styles = StyleSheet.create({
 	message: {
 		marginTop: 4,
-		borderWidth: 1,
-		borderColor: 'red'
+		// borderWidth: 1,
+		// borderColor: 'red'
 		
 	},
 	image: {
 		alignSelf: "center"
 	},
 	textContainer: {
-		backgroundColor: "#FFF",
+		// backgroundColor: "#FFF",
 		padding: 1,
-		borderRadius: 11,
+		// borderRadius: 11,
 		marginLeft: 30,
 		marginRight: 30,
 		minHeight: 40
 	},
 	text: {
 		// fontFamily: "$bouncyBoxMenuFont",
+		fontFamily: "Futura-CondensedExtraBold",
 		fontSize: 30
 	}
 });

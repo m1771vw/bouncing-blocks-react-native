@@ -15,7 +15,7 @@ import Title from './components/Menus/Title';
 import LevelTitle from './components/Levels/level-title';
 const STARTINGLIVES = 5
 const STARTINGTRAMPOLINES = 5
-const BOXREMOVELIMIT = 1
+const BOXREMOVELIMIT = 5
 // const defaultTheme = {
 //   $bouncyBoxMenuMaxWidth: 500,
 //   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
@@ -25,7 +25,7 @@ const BOXREMOVELIMIT = 1
 // };
 const defaultTheme = {
   $bouncyBoxMenuMaxWidth: 500,
-  $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
+  $bouncyBoxMenuFont: Platform.OS === "ios" ? "Futura-CondensedExtraBold" : "normal",
   $bouncyBoxMenuBackgroundColor: "#fffddd",
   $bouncyBoxMenuPrimaryColor: "#66f6cb",
   $bouncyBoxMenuSecondaryColor: "#0bb482"//"#25D9D9"
@@ -347,9 +347,7 @@ export default class App extends PureComponent {
             animation={'fadeInOut'}
             onAnimationEnd={this.addScoreAnimationDisappear}
       >+1</Animatable.Text>}
-          {/* {scoreArray.map((score) => {
-            return score
-          })} */}
+        
 
           <Text style={scoreFont}>Lives: {lives}</Text>
           {this.state.showLoseLifeAnimation &&
@@ -369,8 +367,7 @@ export default class App extends PureComponent {
             style={styles.noTrampoline}
             animation={'fadeInOut'}
             onAnimationEnd={this.showNoTrampolineAnimationDisappear}
-      >No Trampolines Left!</Animatable.Text>}
-          {/* <Text>Removed: {removedBoxes}</Text> */}
+            >No Trampolines Left!</Animatable.Text>}
         </View>
         )}
         
@@ -407,27 +404,30 @@ const styles = StyleSheet.create({
   },
   scoreFont: {
     fontSize: 24,
-    
+    fontFamily: "Futura-CondensedExtraBold"
   },
   addScore: {
     fontSize: 30,
     position: 'absolute',
     marginLeft: 75,
     marginTop: 30,
-    color:'green'
+    color:'green',
+    fontFamily: "Futura-CondensedExtraBold"
   },
   loseLife: {
     fontSize: 30,
     position: 'absolute',
     marginLeft: 290,
     marginTop: 30,
-    color: 'red'
+    color: 'red',
+    fontFamily: "Futura-CondensedExtraBold"
   },
   noTrampoline: {
     fontSize: 30,
     position: 'absolute',
     marginLeft: 150,
-    marginTop: 150
+    marginTop: 150,
+    fontFamily: "Futura-CondensedExtraBold"
   },
 
   endMessage: {

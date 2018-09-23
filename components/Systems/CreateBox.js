@@ -80,7 +80,7 @@ export default (entities, { events, time, dispatch }) => {
 	if (lastSpawn == null) {
 		lastSpawn = time.current;
 	}
-	if (time.current - lastSpawn > 2000 && boxIds <= 100){
+	if (time.current - lastSpawn > 4000 && boxIds <= 100){
 		lastSpawn = time.current;
 		createBoxes(entities, events);
 	}

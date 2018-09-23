@@ -19,26 +19,6 @@ export default class Popup extends PureComponent {
 			style={styles.container}
 			animation="bounceInUp"
 		>
-				{/* /* <ScrollView
-					ref={"scrollView"}
-					// onContentSizeChange={_ => {
-					// 	this.refs.scrollView.scrollToEnd({
-					// 		animated: true
-					// 	});
-					// }}
-					// onLayout={({ nativeEvent: { layout: { height } } }) =>
-					// 	this.setState({
-					// 		scrollViewHeight: height
-					// 	})}
-					// contentContainerStyle={[
-					// 	styles.scrollViewContainer,
-					// 	{
-					// 		minHeight: this.state.scrollViewHeight
-					// 	}
-					// ]}
-				> */
-					/* {this.props.children}
-				</ScrollView> */ }
 				<View>{this.props.children}</View>
 				<View style={styles.buttonContainer}> 
 
@@ -68,13 +48,23 @@ const styles = StyleSheet.create({
 		margin: 0,
 		padding: 0,
 		// flex: 1,
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		borderColor:'grey',
+		borderWidth: 1,
+		borderRadius: 5,
+		// borderColor: 'blue',
+		// borderWidth: 4,
+		padding: 50,
+		minWidth: 390
 	},
 	buttonContainer: {
 		flexDirection: 'row',
 		alignSelf: 'center',
 		justifyContent: 'center',
-		maxWidth: 200
+		maxWidth: 200,
+		// borderColor:'red',
+		// borderWidth: 4,
+
 	},
 	scrollViewContainer: {
 		width: 200,

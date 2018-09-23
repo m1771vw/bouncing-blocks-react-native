@@ -53,7 +53,7 @@ const styles = EStyleSheet.create({
     // top: 100,
     width: 200,
     height: 200,
-    borderColor: 'black',
-    backgroundColor: 'black'
+    // borderColor: 'black',
+    // backgroundColor: 'black'
   }
 });

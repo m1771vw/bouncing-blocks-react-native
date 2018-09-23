@@ -6,6 +6,7 @@ import Trampoline from '../Trampoline';
 import TrampolineCount from '../TrampolineCount';
 import { collisionCategories } from "../Utilities/constants";
 import Score from '../Score';
+import Background from '../Background'
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 const { width, height } = Dimensions.get("screen");
 // console.log('level-1 width: ', width, 'height: ', height)
@@ -41,6 +42,7 @@ export default LevelOne => {
     return {
         // physics: { engine: engine, world: world, constraint: constraint },
         physics: { engine: engine, world: world },
+        background: { source: require('../assets/img/green_gradient_reversed.png'), renderer: Background},
         roof: { body: roof, size: [width, boxSize], color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         leftWall: { body: leftWall, size: [width * 0.05, height], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 
         rightWallUpper: { body: rightWallUpper, size: [width * 0.05, height* 0.40], borderColor: '#86E9BE', color: "#86E9BE", renderer: Box }, // Renderer takes in a function!! 

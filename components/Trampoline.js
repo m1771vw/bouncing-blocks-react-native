@@ -28,7 +28,8 @@ export default class Trampoline extends Component {
             transform: [{ rotate: angle + "rad" }],
             backgroundColor: this.props.color || "#4441f4",
             borderColor: 'black',
-            borderWidth: 1
+            borderWidth: 1,
+            borderRadius: 5
 
           }}/>
     );

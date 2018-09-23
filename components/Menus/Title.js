@@ -29,7 +29,8 @@ export default class Title extends PureComponent {
     >
     {/* // <View style={styles.titleContainer}> */}
         <ImageBackground style={{opacity: 0.4, flex: 1, position: 'absolute', width: '100%', height: '100%', justifyContent: 'center'}}
-        source={{uri:'https://png.pngtree.com/thumb_back/fw800/back_pic/03/57/04/33579fed2bb5808.jpg'}}>
+        // source={{uri:'https://png.pngtree.com/thumb_back/fw800/back_pic/03/57/04/33579fed2bb5808.jpg'}}>
+        source={require('../assets/img/green_gradient_reversed.png')}>
 
         </ImageBackground>
         <Text style={styles.titleH1}>Bouncy Blocks</Text>
@@ -95,7 +96,7 @@ const styles = EStyleSheet.create({
     // top: 100,
     width: 200,
     height: 200,
-    borderColor: 'black',
-    backgroundColor: 'black'
+    // borderColor: 'black',
+    // backgroundColor: 'black'
   }
 });

@@ -6,6 +6,8 @@ import Trampoline from '../Trampoline';
 import TrampolineCount from '../TrampolineCount';
 import { collisionCategories } from "../Utilities/constants";
 import Score from '../Score';
+import Background from '../Background'
+
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 const { width, height } = Dimensions.get("screen");
 const boxSize = Math.trunc(Math.max(width, height) * 0.075);
@@ -37,6 +39,8 @@ export default LevelFour => {
     return {
         
         physics: { engine: engine, world: world },
+        background: { source: require('../assets/img/blue_circle_gradient.png'), renderer: Background},
+
         roof: { body: roof, size: [width, boxSize], borderColor: '#65c6de', color: "#71dcf7", renderer: Box }, 
         leftWall: { body: leftWall, size: [width * 0.05, height], borderColor: '#65c6de', color: "#71dcf7", renderer: Box }, 
         wallOne: { body: wallOne, size: [width * 0.03, height * 0.10], borderColor: '#65c6de', color: "#71dcf7", renderer: Box }, 
