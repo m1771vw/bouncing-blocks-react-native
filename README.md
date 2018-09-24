@@ -1,10 +1,12 @@
+## Bouncing Blocks 
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Bouncing Blocks was created with [react-native-game-engine](https://github.com/bberak/react-native-game-engine).
 
 <p align="center">
-  <img src="https://i.gyazo.com/674be8c4b996bd9c1ad9a4320901969e.gif" alt="Image from Gyazo" width="450"/>
-<img src="https://i.gyazo.com/673977b1cf518066c61b4e0781fc5362.gif" alt="Image from Gyazo" width="450"/>
+  <img src="https://i.gyazo.com/674be8c4b996bd9c1ad9a4320901969e.gif" alt="Image from Gyazo" width="300"/>
+<img src="https://i.gyazo.com/673977b1cf518066c61b4e0781fc5362.gif" alt="Image from Gyazo" width="300"/>
 </p>
 
 ## Table of Contents
