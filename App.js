@@ -10,33 +10,27 @@ import LevelFour from './components/Levels/level-4';
 import GameOver from './components/GameOver';
 import NextLevel from './components/NextLevel';
 import EStyleSheet from "react-native-extended-stylesheet";
-// import MainMenu from "./components/Menus/MainMenu";
 import Title from './components/Menus/Title';
 import LevelTitle from './components/Levels/level-title';
 const STARTINGLIVES = 5
 const STARTINGTRAMPOLINES = 5
 const BOXREMOVELIMIT = 5
-// const defaultTheme = {
-//   $bouncyBoxMenuMaxWidth: 500,
-//   $bouncyBoxMenuFont: Platform.OS === "ios" ? "System" : "normal",
-//   $bouncyBoxMenuBackgroundColor: "black",
-//   $bouncyBoxMenuPrimaryColor: "#2068E3",
-//   $bouncyBoxMenuSecondaryColor: "#00FFFF"//"#25D9D9"
-// };
+
 const defaultTheme = {
   $bouncyBoxMenuMaxWidth: 500,
   $bouncyBoxMenuFont: Platform.OS === "ios" ? "Futura-CondensedExtraBold" : "normal",
   $bouncyBoxMenuBackgroundColor: "#fffddd",
   $bouncyBoxMenuPrimaryColor: "#66f6cb",
-  $bouncyBoxMenuSecondaryColor: "#0bb482"//"#25D9D9"
+  $bouncyBoxMenuSecondaryColor: "#0bb482"
 };
+
 Animatable.initializeRegistryWithDefinitions({
   fadeInOut: {
     0: { opacity: 0 },
     0.25: { opacity: 1 },
     1: { opacity: 0 }
   }
-})
+});
 
 export default class App extends PureComponent {
   state={
@@ -53,29 +47,28 @@ export default class App extends PureComponent {
     showAddScoreAnimation: false,
     showLoseLifeAnimation: false,
     showNoTrampolineAnimation: false
-
-  }
+  };
   
   async componentWillMount() {
     await EStyleSheet.build(Object.assign({}, defaultTheme, this.props.theme));
     await Expo.Font.loadAsync({
         'FontAwesome': require('./components/assets/fontawesome-webfont.ttf'),
       });
-  }
+  };
 
   startGame = () => {
-    console.log("running game")
     this.setState({
       gameIsRunning: true,
       showTitle: false,
       currentLevel: 'level-1'
-    }, this.restart)
-  }
+    }, this.restart);
+  };
+
   onPlayGame = () => {
     this.setState({
       titleVisible: false,
-    })
-  }
+    });
+  };
 
   nextLevel = () => {
     this.turnOffText();
@@ -111,14 +104,15 @@ export default class App extends PureComponent {
       }, 1000);
       break;
     }
-    
-  }
+  };
+
   turnOffText = () => {
     this.setState({
       gameOver: false,
       levelBeat: false
     })
-  }
+  };
+
   resetState = (level) => {
     this.setState({
       currentLevel: level, 
@@ -129,8 +123,9 @@ export default class App extends PureComponent {
       lives: STARTINGLIVES,
       removedBoxes: 0,
       score: 0
-      })
-  }
+      });
+  };
+
   getLevelFromState = () => {
     switch(this.state.currentLevel){
       case 'level-1':
@@ -142,7 +137,8 @@ export default class App extends PureComponent {
         case 'level-4':
         return LevelFour()
     }
-  }
+  };
+
   restart = () => {
     this.refs.engine.swap(this.getLevelFromState())
     this.turnOffText();
@@ -150,55 +146,63 @@ export default class App extends PureComponent {
       this.resetState(this.state.currentLevel);
     }, 1000);
   };
+
   quit = () => {
       this.setState({
         gameIsRunning: false,
         gameOver: false,
       });
   };
+
   gameOver = () => {
     this.setState({
       gameIsRunning: false
-    })
-  }
+    });
+  };
+
   increaseScore = () => {
       this.setState({
         showAddScoreAnimation: false
       }, () => {this.setState({
         score: this.state.score + 1,
         showAddScoreAnimation: true
-      })})
-  }
+      })});
+  };
+
   increaseTrampolines = () => {
     this.setState({
       trampolines: this.state.trampolines + 1
-    })
-  }
+    });
+  };
+
   decreaseTrampolines = () => {
     this.setState({
       trampolines: this.state.trampolines - 1
-    })
-  }
+    });
+  };
+
   decreaseLives = () => {
     this.setState({
       showLoseLifeAnimation: false
     }, () => {this.setState({
       lives: this.state.lives - 1,
       showLoseLifeAnimation: true
-    })}, this.checkIfGameOver)
+    })}, this.checkIfGameOver);
+  };
 
-  }
   levelBeat = () => {
     this.setState({
       levelBeat: true,
       gameIsRunning: false
-    })
-  }
+    });
+  };
+
   removeBox = () => {
     this.setState({
       removedBoxes: this.state.removedBoxes + 1
     }, this.checkIfGameOver)
   }
+
   checkIfGameOver = () => {
     this.state.lives !== 0 && this.state.score === BOXREMOVELIMIT
     ? this.setState({
@@ -213,16 +217,19 @@ export default class App extends PureComponent {
       gameIsRunning: true
     })
   }
+
   addScoreAnimationDisappear = () => {
     this.setState({
       showAddScore: false
     })
   }
+
   showLoseLifeAnimationDisappear = () => {
     this.setState({
       showLoseLifeAnimation: false
     })
   }
+
   showNoTrampolineAnimation = () => {
     this.setState({
       showNoTrampolineAnimation: false
@@ -230,11 +237,13 @@ export default class App extends PureComponent {
       showNoTrampolineAnimation: true
     })})
   }
+
   showNoTrampolineAnimationDisappear = () => {
     this.setState({
       showNoTrampolineAnimation: false
     })
   }
+
   handleEvent = ev => {
     if(this.state.showTitle) return;
     switch (ev.type) {
@@ -267,6 +276,7 @@ export default class App extends PureComponent {
         break;
     }
   };
+
   quit = () => {
     this.refs.engine.swap(LevelTitle());
     setTimeout(() => {
@@ -279,8 +289,9 @@ export default class App extends PureComponent {
       titleVisible: true,
       showTitle: true,
       currentLevel: 'level-title'
-    })
-  }
+    });
+  };
+
   render() {
     let {container, scoreFont, scoreContainer, endMessage, addScore} = styles
     let {gameIsRunning, score, lives, trampolines} = this.state
@@ -377,7 +388,6 @@ const styles = StyleSheet.create({
     marginTop: 150,
     fontFamily: "Futura-CondensedExtraBold"
   },
-
   endMessage: {
     alignItems: 'center',
   }

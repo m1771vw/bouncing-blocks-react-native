@@ -8,7 +8,6 @@ import Button from '../Button';
 const {width, height} = Dimensions.get('screen');
 
 export default class TitleButton extends PureComponent {
-
   render() {
     return (
     <View style={styles.titleContainer}>
