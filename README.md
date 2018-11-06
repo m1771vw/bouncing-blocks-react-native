@@ -38,6 +38,5 @@ After it finishes building, it will give you a prompt. Press s, and type in your
 ## Known Issues
 
 Orientation doesn't start up properly - Expo will force it into portrait mode. When it loads, switch it to landscape and refresh the project.
-When running on Expo on the phone,  
 
-When playing through Expo on the phone, it will lag after too many things start to appear on the screen.
+
