@@ -39,4 +39,11 @@ After it finishes building, it will give you a prompt. Press s, and type in your
 
 Orientation doesn't start up properly - Expo will force it into portrait mode. When it loads, switch it to landscape and refresh the project.
 
+## Medium Articles
+
+You can find how I learned about React Native Game Engine here:
+
+Part I: https://medium.com/@williamyang93/my-journey-with-react-native-game-engine-part-i-starting-the-project-bbebcd2ccf6
+
+Part II: https://medium.com/@williamyang93/my-journey-with-react-native-game-engine-part-ii-adding-touch-and-bounce-b9ae3fac06b9
 
